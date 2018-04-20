@@ -11,5 +11,5 @@ Then open Eclipse, right-click on the project you want to work on and refresh <b
 
 **Each time you want to push your updates:** <br />
 $git add . <br />
-$git commit -m "<String>"
+$git commit -m "the text you want"
 $git push origin master
