@@ -22,11 +22,12 @@
 hs_err_pid*
 
 # eclipse project file
-.metadata/
+.metadata
 *.project
 *.classpath
-*.settings/
-.recommenders/
+.settings/
+.recommenders
+*.loadpath
 
 # others
 ~$*.doc
