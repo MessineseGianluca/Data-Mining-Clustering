@@ -16,7 +16,7 @@ public abstract class Attribute {
 		return index;
 	}
 	
-	public String toSTring() {
+	public String toString() {
 		return name;
 	}
 }
