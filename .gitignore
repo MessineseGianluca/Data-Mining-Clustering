@@ -76,3 +76,6 @@ local.properties
 
 # others
 ~$*.doc
+
+# linux trash
+RemoteSystemsTempFiles/
