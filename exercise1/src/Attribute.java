@@ -1,11 +1,13 @@
 public abstract class Attribute {
   
 	protected String name; // symbolic name of the attribute
-	protected int index; // numeric id of the attribute
+	private int index; // numeric id of the attribute
+	private int count=0;
 	
-	Attribute(String name, int index) {
+	Attribute(String name) {
 		this.name = name;
-		this.index = index;
+		count++;
+		this.index = count;
 	}
 	
     String getName() {

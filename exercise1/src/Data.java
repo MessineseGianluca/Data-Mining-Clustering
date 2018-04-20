@@ -13,28 +13,28 @@ public class Data {
 		outLookValues[0] = "overcast";
 		outLookValues[1] = "rain";
 		outLookValues[2] = "sunny";
-		attributeSet[0] = new DiscreteAttribute("Outlook", 0, outLookValues);
+		attributeSet[0] = new DiscreteAttribute("Outlook", outLookValues);
 		
 		String temperatureValues[] = new String[3];
 		temperatureValues[0] = "cold";
 		temperatureValues[1] = "mild";
 		temperatureValues[2] = "hot";
-		attributeSet[1] = new DiscreteAttribute("Temperature", 1, temperatureValues);
+		attributeSet[1] = new DiscreteAttribute("Temperature", temperatureValues);
 		
 		String humidityValues[] = new String[2];
 		humidityValues[0] = "normal";
 		humidityValues[1] = "high";
-		attributeSet[2] = new DiscreteAttribute("Humidity", 2, humidityValues);
+		attributeSet[2] = new DiscreteAttribute("Humidity", humidityValues);
 		
 		String windValues[] = new String[2];
 		windValues[0] = "weak";
 		windValues[1] = "strong";
-		attributeSet[3] = new DiscreteAttribute("Wind", 3, windValues);
+		attributeSet[3] = new DiscreteAttribute("Wind", windValues);
 		
 		String playTennisValues[] = new String[2];
 		playTennisValues[0] = "yes";
 		playTennisValues[1] = "no";
-		attributeSet[4] = new DiscreteAttribute("Play Tennis", 4, playTennisValues);
+		attributeSet[4] = new DiscreteAttribute("Play Tennis", playTennisValues);
 		
         /* Populate data */
 		data[0][0] = ((DiscreteAttribute) attributeSet[0]).getValue(2); // casting to DiscreteAttribute
@@ -146,14 +146,14 @@ public class Data {
 		String str = new String();
 		// print attributes
 		for(int i = 0; i < 5; i++) {
-			str = str + attributeSet[i].toString() + " ";
+			str = str + attributeSet[i].toString() + "  ";
 		}
 		// print data
 		str = str + "\n";
 		for(int i = 0; i < numberOfExamples; i++) {
 			str = str + (i + 1) + ") ";
 			for(int j = 0; j < 5; j++) {
-				str = str + data[i][j] + " ";
+				str = str + data[i][j] + "   ";
 			}
 			str = str + "\n";
 		}
