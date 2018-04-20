@@ -8,3 +8,8 @@ Then open Eclipse: <br />
 **Each time after a push:** <br />
 $git pull <br />
 Then open Eclipse, right-click on the project you want to work on and refresh <br />
+
+**Each time you want to push your updates:** <br />
+$git add . <br />
+$git commit -m "<String>"
+$git push origin master
