@@ -6,8 +6,8 @@ public abstract class Attribute {
 	
 	Attribute(String name) {
 		this.name = name;
+		index = count;
 		count++;
-		this.index = count;
 	}
 	
     String getName() {
@@ -21,4 +21,8 @@ public abstract class Attribute {
 	public String toString() {
 		return name;
 	}
+	
+	protected void finalize ()  {
+        count--;
+    }
 }
