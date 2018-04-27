@@ -131,8 +131,6 @@ public class Data {
 		return attributeSet.length;
 	}
 	
-	
-	
 	Object getAttributeValue(int exampleIndex, int attributeIndex) {
 		return data[exampleIndex][attributeIndex];
 	}
@@ -140,7 +138,6 @@ public class Data {
 	Attribute getAttribute(int index) {
 		return attributeSet[index];
 	}
-	
 	
 	public String toString() {
 		String str = new String();
@@ -160,8 +157,6 @@ public class Data {
 		
 		return str;
 	}
-
-
 	
 	public static void main(String args[]){
 		Data trainingSet = new Data();
