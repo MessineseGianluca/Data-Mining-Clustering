@@ -209,4 +209,5 @@ public class Data {
 	private boolean compare(int i,int j) {
 		return i == j;
 	}
+	
 }
