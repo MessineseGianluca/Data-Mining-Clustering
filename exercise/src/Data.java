@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Data {
 	private Object data [][]; // transactions
 	private int numberOfExamples; // number of transactions
@@ -161,5 +163,50 @@ public class Data {
 	public static void main(String args[]){
 		Data trainingSet = new Data();
 		System.out.println(trainingSet);
+	}
+	
+	Tuple getItemSet(int index) {
+		Tuple tuple = new Tuple(attributeSet.length);
+		int i;
+		for(i = 0; i < attributeSet.length; i++)
+			tuple.add(
+				new DiscreteItem((DiscreteAttribute)attributeSet[i], (String)data[index][i]),
+				i
+			);
+		return tuple;
+	}
+	
+	/* k is the number of cluster to generate. This method return a k dimension array, whose 
+	 * elements represent the index of the tuples(row index of data matrix) which
+	 * have been initially chosen as centroids(first step of k-means)
+	 */
+	int[] sampling(int k) {
+		int centroidIndexes[] = new int[k];
+		//choose k random different centroids in data.
+		Random rand = new Random();
+		rand.setSeed(System.currentTimeMillis());
+		// init k random centroids
+		for (int i = 0; i < k; i++){
+			boolean found = false;
+			int c;
+			do {
+				found = false;
+				// chose a random index
+				c = rand.nextInt(getNumberOfExamples());
+				// verify that centroid[c] is not equal to a centroide already stored in CentroidIndexes
+				for(int j = 0; j < i; j++) {
+					if(compare(centroidIndexes[j], c)) {
+						found = true;
+						break;
+					}
+				}
+			} while(found);		
+			centroidIndexes[i] = c;
+		}
+		return centroidIndexes;
+	}
+    
+	private boolean compare(int i,int j) {
+		return i == j;
 	}
 }
