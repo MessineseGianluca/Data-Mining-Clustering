@@ -214,14 +214,14 @@ public class Data {
 	}
 	
 	String computePrototype(ArraySet idList, DiscreteAttribute attribute) {
-		int freq;
-		int comp = 0;
+		int comp;
+		int freq = 0;
 		String centroid = "";
 		// look for the more frequent value of attribute in tuples stored in idList.
 		for(int i = 0; i < attribute.getNumberOfDistinctValues(); i++) {
-		    freq = attribute.frequency(this, idList, attribute.getValue(i));
-		    if(freq >= comp) {
-		    	comp = freq;
+		    comp = attribute.frequency(this, idList, attribute.getValue(i));
+		    if(comp >= freq) {
+		    	freq = comp;
 		    	centroid = attribute.getValue(i);
 		    }
 		}
