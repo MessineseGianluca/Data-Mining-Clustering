@@ -160,7 +160,7 @@ public class Data {
 		return str;
 	}
 	
-	public static void main(String args[]){
+	public static void main(String args[]) {
 		Data trainingSet = new Data();
 		System.out.println(trainingSet);
 	}
@@ -182,18 +182,18 @@ public class Data {
 	 */
 	int[] sampling(int k) {
 		int centroidIndexes[] = new int[k];
-		//choose k random different centroids in data.
+		// choose k random different centroids in data.
 		Random rand = new Random();
 		rand.setSeed(System.currentTimeMillis());
-		// init k random centroids
-		for (int i = 0; i < k; i++){
+		// init k random centroids.
+		for(int i = 0; i < k; i++) {
 			boolean found = false;
 			int c;
 			do {
 				found = false;
-				// chose a random index
+				// chose a random index.
 				c = rand.nextInt(getNumberOfExamples());
-				// verify that centroid[c] is not equal to a centroide already stored in CentroidIndexes
+				// verify that centroid[c] is not equal to a centroid already stored in CentroidIndexes.
 				for(int j = 0; j < i; j++) {
 					if(compare(centroidIndexes[j], c)) {
 						found = true;
@@ -208,6 +208,25 @@ public class Data {
     
 	private boolean compare(int i,int j) {
 		return i == j;
+	}
+	
+	Object computePrototype(ArraySet idList, Attribute attribute) {
+		return computePrototype(idList, (DiscreteAttribute) attribute);
+	}
+	
+	String computePrototype(ArraySet idList, DiscreteAttribute attribute) {
+		int freq;
+		int comp = 0;
+		String centroid = "";
+		// look for the more frequent value of attribute in tuples stored in idList.
+		for(int i = 0; i < attribute.getNumberOfDistinctValues(); i++) {
+		    freq = attribute.frequency(this, idList, attribute.getValue(i));
+		    if(freq >= comp) {
+		    	comp = freq;
+		    	centroid = attribute.getValue(i);
+		    }
+		}
+		return centroid;
 	}
 	
 }
