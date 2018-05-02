@@ -217,7 +217,7 @@ public class Data {
 		int comp;
 		int freq = 0;
 		String centroid = "";
-		// look for the more frequent value of attribute in tuples stored in idList.
+		// look for the most frequent value of attribute in tuples stored in idList.
 		for(int i = 0; i < attribute.getNumberOfDistinctValues(); i++) {
 		    comp = attribute.frequency(this, idList, attribute.getValue(i));
 		    if(comp >= freq) {
