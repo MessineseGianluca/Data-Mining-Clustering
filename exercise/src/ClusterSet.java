@@ -63,21 +63,21 @@ public class ClusterSet {
 	
 	public String toString() {
 		int i;
-		String str="";
-		for(i=0; i<C.length; i++) {
-			str+=i+":"+C[i].getCentroid()+"\n";
+		String str = "";
+		for(i = 0; i < C.length; i++) {
+			str += i + ":" + C[i].getCentroid() + "\n";
 		}
 		return str;	
 	}
 	
-	public String toString(Data data ) {
-		String str="";
-		for(int i=0;i<C.length;i++){
-			if (C[i]!=null){
-				str+=i+":"+C[i].toString(data)+"\n";		
+	public String toString(Data data) {
+		int i;
+		String str = "";
+		for(i = 0; i < C.length; i++) {
+			if(C[i] != null) {
+				str += i + ":" + C[i].toString(data) + "\n";		
 			}
 		}
 		return str;		
 	}
-	
 }

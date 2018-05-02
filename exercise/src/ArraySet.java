@@ -28,7 +28,7 @@ public class ArraySet {
     	return !added;
   }
   
-    boolean delete(int i){
+    boolean delete(int i) {
     	if(i < size) { // you can't delete over size index, because there are no true values
     		boolean deleted = set[i];
     		set[i] = false;
