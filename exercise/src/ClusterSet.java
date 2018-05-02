@@ -55,8 +55,29 @@ public class ClusterSet {
 	}
 	
 	void updateCentroids(Data data) {
-		for(int i = 0; i < C.length; i++) {
+		int i;
+		for(i = 0; i < C.length; i++) {
 			C[i].computeCentroid(data);
 		}
 	}
+	
+	public String toString() {
+		int i;
+		String str="";
+		for(i=0; i<C.length; i++) {
+			str+=i+":"+C[i].getCentroid()+"\n";
+		}
+		return str;	
+	}
+	
+	public String toString(Data data ) {
+		String str="";
+		for(int i=0;i<C.length;i++){
+			if (C[i]!=null){
+				str+=i+":"+C[i].toString(data)+"\n";		
+			}
+		}
+		return str;		
+	}
+	
 }
