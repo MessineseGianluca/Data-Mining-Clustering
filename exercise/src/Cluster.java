@@ -9,7 +9,6 @@ public class Cluster {
 	Cluster(Tuple centroid) {
 		this.centroid = centroid;
 		clusteredData = new ArraySet();
-		
 	}
 		
 	Tuple getCentroid() {
@@ -38,18 +37,15 @@ public class Cluster {
 	}
 	
 	public String toString() {
-		String str = "Centroid = ( ";
-		for(int i = 0; i < centroid.getLength(); i++)
-			str += centroid.get(i);
-		str += ")";
+		String str = "Centroid = ";
+		str += centroid.toString();
 		return str;
 	}
 	
 	public String toString(Data data) {
-		String str = "Centroid = ( ";
-		for(int i = 0; i < centroid.getLength(); i++)
-			str += centroid.get(i) + " ";
-		str += ")\nExamples:\n";
+		String str = "Centroid = ";
+		str += centroid.toString();
+		str += "\nExamples:\n";
 		int array[] = clusteredData.toArray();
 		for(int i = 0; i < array.length; i++) {
 			str += "[ ";

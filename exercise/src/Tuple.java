@@ -1,5 +1,5 @@
 public class Tuple {
-    private Item [] tuple;
+    private Item tuple[];
   
     Tuple(int size) {
         tuple = new Item[size];
@@ -37,5 +37,13 @@ public class Tuple {
         p = sumD / clusteredData.length;
         return p;
     }
-        
+    
+    public String toString() {
+    	String str = "( ";
+    	for(int i = 0; i < tuple.length; i++) {
+    		str += get(i).toString() + " ";
+    	}
+    	str += ")";
+    	return str;
+    }
 }

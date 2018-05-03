@@ -67,7 +67,7 @@ public class ClusterSet {
 		for(i = 0; i < C.length; i++) {
 			str += i + ":" + C[i].getCentroid() + "\n";
 		}
-		return str;	
+		return str;
 	}
 	
 	public String toString(Data data) {
