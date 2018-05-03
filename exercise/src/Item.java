@@ -21,7 +21,7 @@
   
     abstract double distance(Object a);
   
-    void update(Data data, ArraySet clusteredData){
+    void update(Data data, ArraySet clusteredData) {
         value = data.computePrototype(clusteredData, attribute);
     }
 }

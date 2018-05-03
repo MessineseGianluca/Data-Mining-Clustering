@@ -18,10 +18,11 @@ public class DiscreteAttribute extends Attribute {
         int count = 0;
         int i;
         for(i = 0; i < data.getNumberOfExamples(); i++) {
-            if(data.getAttributeValue(i, super.getIndex()) == v) { // Verify the result with .equals method (Runtime)
-                count++;
-                idList.add(i);
-            }
+        	if(idList.get(i)) {
+	            if(data.getAttributeValue(i, super.getIndex()) == v) { // Verify the result with .equals method (Runtime)
+	                count++;
+	            }
+        	}
         }   
         return count;  
     }

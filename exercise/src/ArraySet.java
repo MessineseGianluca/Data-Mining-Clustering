@@ -26,7 +26,7 @@ public class ArraySet {
     	if(i >= size) 
     		size = i + 1;
     	return !added;
-  }
+    }
   
     boolean delete(int i) {
     	if(i < size) { // you can't delete over size index, because there are no true values
