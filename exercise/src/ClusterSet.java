@@ -1,14 +1,14 @@
 public class ClusterSet {
 	private Cluster C[];
-	private int i = 0;
+	private int nextCluster = 0;
 	
 	ClusterSet(int k) {
 		C = new Cluster[k];
 	}
 	
 	void add(Cluster c) {
-		C[i] = c;
-		i++;
+		C[nextCluster] = c;
+		nextCluster++;
 	}
 	
 	Cluster get(int i) {
@@ -47,7 +47,7 @@ public class ClusterSet {
 			i++;
 		}
 		if(found) {
-			return C[i-1];
+			return C[i - 1];
 		}
 		else {
 			return null;
