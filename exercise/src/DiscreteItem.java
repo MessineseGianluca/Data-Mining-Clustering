@@ -6,7 +6,7 @@ public class DiscreteItem extends Item {
   
     double distance (Object a) {
         double v = 0;
-        if(!getValue().equals(a)) {
+        if(getValue() != ((Item) a).getValue()) {
             v = 1;
         }
         return v;

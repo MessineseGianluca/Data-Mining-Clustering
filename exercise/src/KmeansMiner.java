@@ -13,7 +13,7 @@ public class KmeansMiner {
 		int numberOfIterations = 0;
 		// first step
 		C.initializeCentroids(data);
-		boolean changedCluster = false;
+		boolean changedCluster;
 		do {
 			numberOfIterations++;
 			// second step

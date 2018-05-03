@@ -1,4 +1,3 @@
-
 public class Cluster {
 	private Tuple centroid;
 	private ArraySet clusteredData; 
@@ -39,7 +38,7 @@ public class Cluster {
 	}
 	
 	public String toString() {
-		String str = "Centroid=(";
+		String str = "Centroid = ( ";
 		for(int i = 0; i < centroid.getLength(); i++)
 			str += centroid.get(i);
 		str += ")";
@@ -47,18 +46,18 @@ public class Cluster {
 	}
 	
 	public String toString(Data data) {
-		String str = "Centroid=(";
+		String str = "Centroid = ( ";
 		for(int i = 0; i < centroid.getLength(); i++)
 			str += centroid.get(i) + " ";
 		str += ")\nExamples:\n";
 		int array[] = clusteredData.toArray();
 		for(int i = 0; i < array.length; i++) {
-			str += "[";
+			str += "[ ";
 			for(int j = 0; j < data.getNumberOfAttributes(); j++)
 				str += data.getAttributeValue(array[i], j) + " ";
-			str += "] dist=" + getCentroid().getDistance(data.getItemSet(array[i])) + "\n";	
+			str += "] => dist=" + getCentroid().getDistance(data.getItemSet(array[i])) + "\n";	
 		}
-		str += "\nAvgDistance=" + getCentroid().avgDistance(data, array);
+		str += "AvgDistance = " + getCentroid().avgDistance(data, array) + "\n";
 		return str;	
 	}
 }
