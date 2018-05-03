@@ -208,7 +208,7 @@ public class Data {
 		return computePrototype(idList, (DiscreteAttribute) attribute);
 	}
 	
-	String computePrototype(ArraySet idList, DiscreteAttribute attribute) {
+	private String computePrototype(ArraySet idList, DiscreteAttribute attribute) {
 		int comp;
 		int freq = 0;
 		String centroid = "";
