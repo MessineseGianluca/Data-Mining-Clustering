@@ -1,3 +1,4 @@
+package data;
 public class ContinuousAttribute extends Attribute {
     private double max; // superior end of the range
     private double min; // inferior end of the range

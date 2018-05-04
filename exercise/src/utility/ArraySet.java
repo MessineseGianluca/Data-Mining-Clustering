@@ -1,3 +1,4 @@
+package utility;
 // package whatever; // don't place package name!
 
 import java.util.Arrays;
@@ -7,13 +8,13 @@ public class ArraySet {
     private boolean set[];
     private int size = 0; // index of the last occupied position in the array
   
-    ArraySet () {
+    public ArraySet () {
     	set = new boolean[50];
     	Arrays.fill(set, false);
     }
   
     // return true if add is changing the arraySet
-    boolean add(int i) {
+    public boolean add(int i) {
     	if(i >= set.length) {
     		// array doubling
     		boolean temp[] = new boolean[set.length * 2];
@@ -28,7 +29,7 @@ public class ArraySet {
     	return !added;
     }
   
-    boolean delete(int i) {
+    public boolean delete(int i) {
     	if(i < size) { // you can't delete over size index, because there are no true values
     		boolean deleted = set[i];
     		set[i] = false;
@@ -43,11 +44,11 @@ public class ArraySet {
     	return false;
     }
   
-    boolean get(int i) {
+    public boolean get(int i) {
     	return set[i];
     }
   
-    int[] toArray() {
+    public int[] toArray() {
     	/* The index of every true value found in the set is inserted in
     	 * the dynamic array a. 
     	 */

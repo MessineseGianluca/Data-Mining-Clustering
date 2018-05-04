@@ -1,3 +1,5 @@
+package data;
+
 public abstract class Attribute {
   
 	protected String name; // symbolic name of the attribute

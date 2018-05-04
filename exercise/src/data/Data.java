@@ -1,11 +1,13 @@
+package data;
 import java.util.Random;
+import utility.ArraySet;
 
 public class Data {
 	private Object data [][]; // transactions
 	private int numberOfExamples; // number of transactions
 	private Attribute attributeSet[];
 	
-	Data() {
+	public Data() {
         data = new Object [14][5];
         numberOfExamples = 14;		 
         attributeSet = new Attribute[5]; 
@@ -125,15 +127,15 @@ public class Data {
 		
 	}
 	
-	int getNumberOfExamples() {
+	public int getNumberOfExamples() {
 		return numberOfExamples;
 	}
 	
-	int getNumberOfAttributes() {
+	public int getNumberOfAttributes() {
 		return attributeSet.length;
 	}
 	
-	Object getAttributeValue(int exampleIndex, int attributeIndex) {
+	public Object getAttributeValue(int exampleIndex, int attributeIndex) {
 		return data[exampleIndex][attributeIndex];
 	}
 	
@@ -159,7 +161,7 @@ public class Data {
 		return str;
 	}
 	
-	Tuple getItemSet(int index) {
+	public Tuple getItemSet(int index) {
 		Tuple tuple = new Tuple(attributeSet.length);
 		int i;
 		for(i = 0; i < attributeSet.length; i++)
@@ -174,7 +176,7 @@ public class Data {
 	 * elements represent the index of the tuples(row index of data matrix) which
 	 * have been initially chosen as centroids(first step of k-means)
 	 */
-	int[] sampling(int k) {
+	public int[] sampling(int k) {
 		int centroidIndexes[] = new int[k];
 		// choose k random different centroids in data.
 		Random rand = new Random();

@@ -1,3 +1,7 @@
+package mining;
+import data.Data;
+import data.Tuple;
+
 public class ClusterSet {
 	private Cluster C[];
 	private int nextCluster = 0;

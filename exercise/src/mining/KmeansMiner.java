@@ -1,15 +1,18 @@
+package mining;
+import data.Data;
+
 public class KmeansMiner {
 	private ClusterSet C;
 	
-	KmeansMiner(int k) {
+	public KmeansMiner(int k) {
 		C = new ClusterSet(k);
 	}
 	
-	ClusterSet getC() {
+	public ClusterSet getC() {
 		return C;
 	}
 
-	int kmeans(Data data) {
+	public int kmeans(Data data) {
 		int numberOfIterations = 0;
 		// first step
 		C.initializeCentroids(data);

@@ -1,3 +1,6 @@
+import data.Data;
+import mining.KmeansMiner;
+
 public class MainTest {
 	public static void main(String[] args) {
 		Data data = new Data();
