@@ -179,30 +179,33 @@ public class Data {
 	 * elements represent the index of the tuples(row index of data matrix) which
 	 * have been initially chosen as centroids(first step of k-means)
 	 */
-	public int[] sampling(int k) {
-		int centroidIndexes[] = new int[k];
-		// choose k random different centroids in data.
-		Random rand = new Random();
-		rand.setSeed(System.currentTimeMillis());
-		// init k random centroids.
-		for(int i = 0; i < k; i++) {
-			boolean found = false;
-			int c;
-			do {
-				found = false;
-				// chose a random index.
-				c = rand.nextInt(getNumberOfExamples());
-				// verify that centroid[c] is not equal to a centroid already stored in CentroidIndexes.
-				for(int j = 0; j < i; j++) {
-					if(compare(centroidIndexes[j], c)) {
-						found = true;
-						break;
-					}
-				}
-			} while(found);		
-			centroidIndexes[i] = c;
-		}
-		return centroidIndexes;
+
+	public int[] sampling(int k) throws OutOfRangeSampleSize {
+		// exception
+	    if(k <= 0 || k > distinctTuples) throw new OutOfRangeSampleSize();
+	    int centroidIndexes[] = new int[k];
+	    // choose k random different centroids in data.
+	    Random rand = new Random();
+	    rand.setSeed(System.currentTimeMillis());
+	    // init k random centroids.
+	    for(int i = 0; i < k; i++) {
+	        boolean found = false;
+	        int c;
+	        do {
+	            found = false;
+	            // chose a random index.
+	            c = rand.nextInt(getNumberOfExamples());
+	            // verify that centroid[c] is not equal to a centroid already stored in CentroidIndexes.
+	            for(int j = 0; j < i; j++) {
+	                if(compare(centroidIndexes[j], c)) {
+	                    found = true;
+	                    break;
+	                }
+	            }
+	        } while(found);        
+	        centroidIndexes[i] = c;
+	    }
+	    return centroidIndexes;
 	}
     
 	private boolean compare(int i, int j) {
