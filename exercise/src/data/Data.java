@@ -6,6 +6,7 @@ public class Data {
 	private Object data [][]; // transactions
 	private int numberOfExamples; // number of transactions
 	private Attribute attributeSet[];
+	private int distinctTuples;
 	
 	public Data() {
         data = new Object [14][5];
@@ -125,6 +126,8 @@ public class Data {
 		data[13][3] = ((DiscreteAttribute) attributeSet[3]).getValue(1);
 		data[13][4] = ((DiscreteAttribute) attributeSet[4]).getValue(1);
 		
+		/* Initialize the counter of distinct tuples */
+	    distinctTuples = countDistinctTuples();
 	}
 	
 	public int getNumberOfExamples() {
@@ -202,10 +205,18 @@ public class Data {
 		return centroidIndexes;
 	}
     
-	private boolean compare(int i,int j) {
-		return i == j;
+	private boolean compare(int i, int j) {
+	    boolean equal = true;
+	    int k = 0;
+	    while(k < attributeSet.length && equal) {
+	        if(getAttributeValue(i, k) != getAttributeValue(j, k)) {
+	            equal = false;
+	        }
+	        k++;
+	    }
+	    return equal;
 	}
-	
+
 	Object computePrototype(ArraySet idList, Attribute attribute) {
 		return computePrototype(idList, (DiscreteAttribute) attribute);
 	}
@@ -223,5 +234,19 @@ public class Data {
 		    }
 		}
 		return centroid;
-	}	
+	}
+	
+	private int countDistinctTuples() {
+	    int count = numberOfExamples;
+	    for(int i = 0; i < numberOfExamples; i++) {
+	        boolean found = false;
+	        for(int j = i + 1; j < numberOfExamples && !found; j++) {
+	            if(compare(i, j)) {
+	                count--;
+	                found = true;
+	            }  
+	        }
+	    }
+	    return count;
+	}
 }
