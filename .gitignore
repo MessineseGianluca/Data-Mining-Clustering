@@ -78,6 +78,7 @@ local.properties
 
 # others
 ~$*.doc
+.idea/
 
 # linux trash
 RemoteSystemsTempFiles/
