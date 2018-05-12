@@ -1,5 +1,3 @@
 package data;
 
-public class OutOfRangeSampleSize extends Throwable {
-    
-}
+public class OutOfRangeSampleSize extends Throwable {}
