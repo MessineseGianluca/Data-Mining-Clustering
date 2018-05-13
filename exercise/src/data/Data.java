@@ -1,12 +1,11 @@
 package data;
 import java.util.Random;
-import utility.ArraySet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.TreeSet;
 import java.util.Set;
-import java.util.HashSet;
 
 public class Data {
     private List<Example> data; // list of transactions
@@ -15,34 +14,36 @@ public class Data {
 
     class Example implements Comparable<Example> {
         private List<Object> example = new ArrayList<Object>();
-        
+
         void add(Object o) {
             example.add(o);
         }
-        
+
         Object get(int i) {
             return example.get(i);        
         }
-        
+
         int size() {
             return example.size();
         }
         
-        public int compareTo(Example ex) {
-            if(example.size() != ex.size()) {
-                throw new SizeNotEquivalentException();
-            }
+        public Iterator<Object> getIterator() {
+            return example.iterator();
+        }
+      
+        @SuppressWarnings("unchecked")
+		public int compareTo(Example ex) {
+            Iterator<Object> iter = example.iterator();
+            Iterator<Object> iter2 = ex.getIterator();
             int match = 0;
-            int i = 0;
-
-            while(i < example.size() && match == 0) {
-                match = get(i).compareTo(ex.get(i)); // compareTo is undefined method for type Object
-                i++;
+            while(iter.hasNext() && match == 0) {
+                Object obj = iter.next();
+                Object obj2 = iter2.next();
+                match = ((Comparable<Object>)obj).compareTo(obj2);
             }
-                
             return match;
         }
-        
+
         public String toString() {
             String str = "";
             for(Object o: example) {
