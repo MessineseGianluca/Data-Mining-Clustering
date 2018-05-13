@@ -6,8 +6,8 @@ import java.util.Set;
 
 public class Cluster {
 	private Tuple centroid;
-	Set<Integer> clusteredData; 
-
+	Set<Integer> clusteredData;
+	
 	Cluster(Tuple centroid) {
 		this.centroid = centroid;
 		clusteredData = new HashSet<Integer>();

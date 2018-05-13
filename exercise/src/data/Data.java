@@ -241,11 +241,12 @@ public class Data {
     public Tuple getItemSet(int index) {
         Tuple tuple = new Tuple(attributeSet.size());
         int i;
-        for(i = 0; i < attributeSet.size(); i++)
+        for(i = 0; i < attributeSet.size(); i++) {
             tuple.add(
                 new DiscreteItem((DiscreteAttribute)attributeSet.get(i), (String)data.get(index).get(i)),
                 i
             );
+        }
         return tuple;
     }
     

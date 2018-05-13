@@ -26,12 +26,12 @@ public class DiscreteAttribute extends Attribute implements Iterable<String> {
         int i;
         for(i = 0; i < data.getNumberOfExamples(); i++) {
             if(idList.contains(i)) {
-                if(data.getAttributeValue(i, super.getIndex()) == v) {
+                if(data.getAttributeValue(i, super.getIndex()).equals(v)) {
                     count++;
                 }
             }
         }   
-        return count;  
+        return count;
     }
     
     public Iterator<String> iterator() {
