@@ -1,4 +1,5 @@
 package mining;
+import java.io.*;
 import data.Data;
 import data.OutOfRangeSampleSize;
 
@@ -7,6 +8,12 @@ public class KmeansMiner {
 	
 	public KmeansMiner(int k) {
 		C = new ClusterSet(k);
+	}
+	
+	public KmeansMiner(String fileName) throws FileNotFoundException, IOException, ClassNotFoundException {
+		ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName));
+		C = (ClusterSet)in.readObject();
+		in.close();
 	}
 	
 	public ClusterSet getC() {

@@ -64,11 +64,8 @@ public class Data {
         outLookValues.add("sunny");
         attributeSet.add(new DiscreteAttribute("Outlook", outLookValues));
         
-        TreeSet<String> temperatureValues = new TreeSet<String>();
-        temperatureValues.add("cool");
-        temperatureValues.add("mild");
-        temperatureValues.add("hot");
-        attributeSet.add(new DiscreteAttribute("Temperature", temperatureValues));
+        
+        attributeSet.add(new ContinuousAttribute("Temperature", 3.2, 38.7));
         
         TreeSet<String> humidityValues = new TreeSet<String>();
         humidityValues.add("normal");
@@ -102,85 +99,85 @@ public class Data {
         Example ex14 = new Example();
         
         ex1.add(new String("sunny"));
-        ex1.add(new String("hot"));
+        ex1.add(37.5);
         ex1.add(new String("high"));
         ex1.add(new String("weak"));
         ex1.add(new String("no"));
         
         ex2.add(new String("sunny"));
-        ex2.add(new String("hot"));
+        ex2.add(38.7);
         ex2.add(new String("high"));
         ex2.add(new String("strong"));
         ex2.add(new String("no"));
         
         ex3.add(new String("overcast"));
-        ex3.add(new String("hot"));
+        ex3.add(37.5);
         ex3.add(new String("high"));
         ex3.add(new String("weak"));
         ex3.add(new String("yes"));
         
         ex4.add(new String("rain"));
-        ex4.add(new String("mild"));
+        ex4.add(20.5);
         ex4.add(new String("high"));
         ex4.add(new String("weak"));
         ex4.add(new String("yes"));
         
         ex5.add(new String("rain"));
-        ex5.add(new String("cool"));
+        ex5.add(20.7);
         ex5.add(new String("normal"));
         ex5.add(new String("weak"));
         ex5.add(new String("yes"));
         
         ex6.add(new String("rain"));
-        ex6.add(new String("cool"));
+        ex6.add(21.2);
         ex6.add(new String("normal"));
         ex6.add(new String("strong"));
         ex6.add(new String("no"));
         
         ex7.add(new String("overcast"));
-        ex7.add(new String("cool"));
+        ex7.add(20.5);
         ex7.add(new String("normal"));
         ex7.add(new String("strong"));
         ex7.add(new String("yes"));
         
         ex8.add(new String("sunny"));
-        ex8.add(new String("mild"));
+        ex8.add(21.2);
         ex8.add(new String("high"));
         ex8.add(new String("weak"));
         ex8.add(new String("no"));
         
         ex9.add(new String("sunny"));
-        ex9.add(new String("cool"));
+        ex9.add(21.2);
         ex9.add(new String("normal"));
         ex9.add(new String("weak"));
         ex9.add(new String("yes"));
         
         ex10.add(new String("rain"));
-        ex10.add(new String("mild"));
+        ex10.add(19.8);
         ex10.add(new String("normal"));
         ex10.add(new String("weak"));
         ex10.add(new String("yes"));
         
         ex11.add(new String("sunny"));
-        ex11.add(new String("mild"));
+        ex11.add(3.5);
         ex11.add(new String("normal"));
         ex11.add(new String("strong"));
         ex11.add(new String("yes"));
         
         ex12.add(new String("overcast"));
-        ex12.add(new String("mild"));
+        ex12.add(3.6);
         ex12.add(new String("high"));
         ex12.add(new String("strong"));
         ex12.add(new String("yes"));
         
         ex13.add(new String("overcast"));
-        ex13.add(new String("hot"));
+        ex13.add(3.5);
         ex13.add(new String("normal"));
         ex13.add(new String("weak"));
         ex13.add(new String("yes"));
         
         ex14.add(new String("rain"));
-        ex14.add(new String("mild"));
+        ex14.add(3.2);
         ex14.add(new String("high"));
         ex14.add(new String("strong"));
         ex14.add(new String("no"));
@@ -242,10 +239,18 @@ public class Data {
         Tuple tuple = new Tuple(attributeSet.size());
         int i;
         for(i = 0; i < attributeSet.size(); i++) {
-            tuple.add(
-                new DiscreteItem((DiscreteAttribute)attributeSet.get(i), (String)data.get(index).get(i)),
-                i
-            );
+        	Attribute attr = attributeSet.get(i);
+            if(attr instanceof ContinuousAttribute) {
+            	tuple.add(
+                        new ContinuousItem((ContinuousAttribute)attr, (Double)data.get(index).get(i)),
+                        i
+                );
+            } else {
+            	tuple.add(
+                        new DiscreteItem((DiscreteAttribute)attr, (String)data.get(index).get(i)),
+                        i
+                );
+            }
         }
         return tuple;
     }
@@ -295,8 +300,12 @@ public class Data {
         return equal;
     }
 
-    Object computePrototype(Set<Integer> idList, Attribute attribute) {
-        return computePrototype(idList, (DiscreteAttribute) attribute);
+    Object computePrototype(Set<Integer> idList, Attribute attribute) { //By using RTTI, he can decide if the attribute is Discrete or Continuous
+        if(attribute instanceof ContinuousAttribute) {
+        	return computePrototype(idList, (ContinuousAttribute) attribute);
+        } else {
+        	return computePrototype(idList, (DiscreteAttribute) attribute);
+        }
     }
     
     private String computePrototype(Set<Integer> idList, DiscreteAttribute attribute) {
@@ -312,6 +321,10 @@ public class Data {
             }
         }
         return centroid;
+    }
+    
+    private Double computePrototype(Set<Integer> idList, ContinuousAttribute attribute) {
+    	return attribute.getAVG(this, idList);
     }
 }
 
