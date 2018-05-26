@@ -12,7 +12,7 @@ public class MainTest {
 		do {
 			System.out.println("(1) Load cluster from file");
 			System.out.println("(2) Load data");
-			System.out.print("Answer:");
+			System.out.print("Answer: ");
 			answer = Keyboard.readInt();
 		} while(answer <= 0 || answer > 2);
 		return answer;
@@ -77,7 +77,7 @@ public class MainTest {
 				default:
 					System.out.println("Invalid operation!");
 			}
-			System.out.print("Do you want to choose another operation from the menù?(y/n): ");
+			System.out.print("Do you want to choose another operation from the menu?(y/n): ");
 			if(Keyboard.readChar() != 'y') break;
 		} while(true);
 	}
