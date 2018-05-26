@@ -52,9 +52,9 @@ public class MainTest {
 						KmeansMiner kmeans = new KmeansMiner(k);
 						try {
 							int numIter = kmeans.kmeans(data);
-							System.out.println("Number of iteration:" + numIter);
+							System.out.println("Number of iteration: " + numIter);
 							System.out.println(kmeans.getC().toString(data));
-							System.out.print("Backup file name:");
+							System.out.print("Backup file name: ");
 							String fileName = Keyboard.readString() + ".dmp";
 							System.out.println("Saving in " + fileName);
 							try {
