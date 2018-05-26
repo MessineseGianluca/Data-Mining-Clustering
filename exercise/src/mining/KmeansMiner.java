@@ -51,5 +51,9 @@ public class KmeansMiner {
         } while(changedCluster);
         return numberOfIterations;
     }
+    
+    public String toString() {
+        return C.toString();
+    }
 }
 
