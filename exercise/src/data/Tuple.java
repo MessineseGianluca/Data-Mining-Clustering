@@ -1,6 +1,9 @@
 package data;
-public class Tuple {
-    private Item tuple[];
+import java.io.Serializable;
+
+public class Tuple implements Serializable {
+	private static final long serialVersionUID = 1L;
+	private Item tuple[];
   
     Tuple(int size) {
         tuple = new Item[size];

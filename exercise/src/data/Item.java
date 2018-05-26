@@ -1,8 +1,10 @@
 package data;
+import java.io.Serializable;
 import java.util.Set;
 
-public abstract class Item {
-    protected Attribute attribute;
+public abstract class Item implements Serializable {
+	private static final long serialVersionUID = 1L;
+	protected Attribute attribute;
     protected Object value;
   
     public Item(Attribute attribute, Object value) {
