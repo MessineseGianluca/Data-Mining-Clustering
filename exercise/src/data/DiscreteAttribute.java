@@ -5,7 +5,8 @@ import java.util.Arrays;
 import java.util.Set;
 
 public class DiscreteAttribute extends Attribute implements Iterable<String> {
-    private TreeSet<String> values;
+	private static final long serialVersionUID = 1L;
+	private TreeSet<String> values;
     
     public DiscreteAttribute(String name, TreeSet<String> values)  {
         super(name);

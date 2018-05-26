@@ -1,6 +1,7 @@
 package data;
 public class DiscreteItem extends Item {
-    
+	private static final long serialVersionUID = 1L;
+
 	DiscreteItem(DiscreteAttribute attribute, String value) {
         super(attribute, value);
     }
