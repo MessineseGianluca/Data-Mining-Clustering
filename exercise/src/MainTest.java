@@ -1,10 +1,10 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
 import keyboardinput.Keyboard;
 import mining.KmeansMiner;
 import data.Data;
 import data.OutOfRangeSampleSize;
+
 public class MainTest {
 	private static int menu() {
 		int answer;
