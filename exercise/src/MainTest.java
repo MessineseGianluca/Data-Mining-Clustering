@@ -6,6 +6,9 @@ import data.Data;
 import data.OutOfRangeSampleSize;
 import java.sql.SQLException;
 
+import database.DatabaseConnectionException;
+import database.DbAccess;
+
 public class MainTest {
     private static int menu() {
         int answer;
@@ -27,7 +30,7 @@ public class MainTest {
         
     }
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException, DatabaseConnectionException, SQLException {
         do {
             int menuAnswer = menu();
             switch(menuAnswer) {
@@ -43,8 +46,9 @@ public class MainTest {
                         e1.printStackTrace();
                     }
                     break;
-                case 2:  
-                	String table = "playtennis";
+                case 2: 
+                	DbAccess.initConnection();
+                 	String table = "playtennis";
                     try { 
                         Data data = new Data(table);  
                         System.out.println(data);
@@ -79,6 +83,7 @@ public class MainTest {
                     } catch(SQLException e) {
                         System.out.println(e.getMessage());
                     }
+                    DbAccess.closeConnection();
                 default:
                     System.out.println("Invalid operation!");
             }
