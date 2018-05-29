@@ -5,13 +5,17 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.TreeSet;
 import java.util.Set;
-import database.Example;
+import database.*;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.SQLException;
+
 
 public class Data {
     private List<Example> data; // list of transactions
     private int numberOfExamples; // number of transactions
     private List<Attribute> attributeSet;
-    public Data() {       
+    public Data(String table) throws SQLException {       
         attributeSet = new LinkedList<Attribute>();
         TreeSet<Example> tempData = new TreeSet<Example>();
         
@@ -40,122 +44,23 @@ public class Data {
         playTennisValues.add("no");
         attributeSet.add(new DiscreteAttribute("Play Tennis", playTennisValues));
         
-        /* Examples */
-        Example ex1 = new Example();
-        Example ex2 = new Example();
-        Example ex3 = new Example();
-        Example ex4 = new Example();
-        Example ex5 = new Example();
-        Example ex6 = new Example();
-        Example ex7 = new Example();
-        Example ex8 = new Example();
-        Example ex9 = new Example();
-        Example ex10 = new Example();
-        Example ex11 = new Example();
-        Example ex12 = new Example();
-        Example ex13 = new Example();
-        Example ex14 = new Example();
-        
-        ex1.add(new String("sunny"));
-        ex1.add(37.5);
-        ex1.add(new String("high"));
-        ex1.add(new String("weak"));
-        ex1.add(new String("no"));
-        
-        ex2.add(new String("sunny"));
-        ex2.add(38.7);
-        ex2.add(new String("high"));
-        ex2.add(new String("strong"));
-        ex2.add(new String("no"));
-        
-        ex3.add(new String("overcast"));
-        ex3.add(37.5);
-        ex3.add(new String("high"));
-        ex3.add(new String("weak"));
-        ex3.add(new String("yes"));
-        
-        ex4.add(new String("rain"));
-        ex4.add(20.5);
-        ex4.add(new String("high"));
-        ex4.add(new String("weak"));
-        ex4.add(new String("yes"));
-        
-        ex5.add(new String("rain"));
-        ex5.add(20.7);
-        ex5.add(new String("normal"));
-        ex5.add(new String("weak"));
-        ex5.add(new String("yes"));
-        
-        ex6.add(new String("rain"));
-        ex6.add(21.2);
-        ex6.add(new String("normal"));
-        ex6.add(new String("strong"));
-        ex6.add(new String("no"));
-        
-        ex7.add(new String("overcast"));
-        ex7.add(20.5);
-        ex7.add(new String("normal"));
-        ex7.add(new String("strong"));
-        ex7.add(new String("yes"));
-        
-        ex8.add(new String("sunny"));
-        ex8.add(21.2);
-        ex8.add(new String("high"));
-        ex8.add(new String("weak"));
-        ex8.add(new String("no"));
-        
-        ex9.add(new String("sunny"));
-        ex9.add(21.2);
-        ex9.add(new String("normal"));
-        ex9.add(new String("weak"));
-        ex9.add(new String("yes"));
-        
-        ex10.add(new String("rain"));
-        ex10.add(19.8);
-        ex10.add(new String("normal"));
-        ex10.add(new String("weak"));
-        ex10.add(new String("yes"));
-        
-        ex11.add(new String("sunny"));
-        ex11.add(3.5);
-        ex11.add(new String("normal"));
-        ex11.add(new String("strong"));
-        ex11.add(new String("yes"));
-        
-        ex12.add(new String("overcast"));
-        ex12.add(3.6);
-        ex12.add(new String("high"));
-        ex12.add(new String("strong"));
-        ex12.add(new String("yes"));
-        
-        ex13.add(new String("overcast"));
-        ex13.add(3.5);
-        ex13.add(new String("normal"));
-        ex13.add(new String("weak"));
-        ex13.add(new String("yes"));
-        
-        ex14.add(new String("rain"));
-        ex14.add(3.2);
-        ex14.add(new String("high"));
-        ex14.add(new String("strong"));
-        ex14.add(new String("no"));
-        
-        /* Add examples to tempData(which is a set) in order to avoid duplicates */
-        tempData.add(ex1);
-        tempData.add(ex2);
-        tempData.add(ex3);
-        tempData.add(ex4);
-        tempData.add(ex5);
-        tempData.add(ex6);
-        tempData.add(ex7);
-        tempData.add(ex8);
-        tempData.add(ex9);
-        tempData.add(ex10);
-        tempData.add(ex11);
-        tempData.add(ex12);
-        tempData.add(ex13);
-        tempData.add(ex14); 
-        data = new ArrayList<Example>(tempData); 
+        /* Add examples */
+        Statement stmt = DbAccess.getConnection().createStatement();
+        TableSchema schema = new TableSchema(, table);
+        String query = "SELECT DISTINCT * FROM" + table;
+        ResultSet rs = stmt.executeQuery(query);
+        data = new ArrayList<Example>();
+        while(rs.next()) {
+          Example ex = new Example();
+            for(int i = 0; i < schema.getNumberOfAttributes(); i++) {
+                if(schema.getColumn(i).isNumber()) {
+                  ex.add(rs.getFloat(i));
+                } else {
+                  ex.add(rs.getString(i));
+                }
+            }
+            data.add(ex);
+        }
         numberOfExamples = data.size();  
     }
     
