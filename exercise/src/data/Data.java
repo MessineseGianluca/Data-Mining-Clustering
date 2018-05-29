@@ -17,7 +17,6 @@ public class Data {
     private List<Attribute> attributeSet;
     public Data(String table) throws SQLException {       
         attributeSet = new LinkedList<Attribute>();
-        TreeSet<Example> tempData = new TreeSet<Example>();
         
         /* Populate attributeSet */
         TreeSet<String> outLookValues = new TreeSet<String>();
@@ -45,8 +44,9 @@ public class Data {
         attributeSet.add(new DiscreteAttribute("Play Tennis", playTennisValues));
         
         /* Add examples */
+        DbAccess db = new DbAccess();
         Statement stmt = DbAccess.getConnection().createStatement();
-        TableSchema schema = new TableSchema(, table);
+        TableSchema schema = new TableSchema(db, table);
         String query = "SELECT DISTINCT * FROM" + table;
         ResultSet rs = stmt.executeQuery(query);
         data = new ArrayList<Example>();
