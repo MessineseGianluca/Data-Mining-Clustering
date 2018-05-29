@@ -18,32 +18,21 @@ import database.TableSchema.Column;
 
 
 public class TableData {
-
 	DbAccess db;
-
-	
-	
 	public TableData(DbAccess db) {
-		this.db=db;
+		this.db = db;
 	}
 
-	public List<Example> getDistinctTransazioni(String table) throws SQLException, EmptySetException{
-		\\to do
-
-	}
-
-	
-	public  Set<Object>getDistinctColumnValues(String table,Column column) throws SQLException{
-		\\to do
-
-	}
-
-	public  Object getAggregateColumnValue(String table,Column column,QUERY_TYPE aggregate) throws SQLException,NoValueException{
-		\\ to do
+	public List<Example> getDistinctTransazioni(String table) throws SQLException, EmptySetException {
+		// to do
 	}
 
 	
+	public  Set<Object>getDistinctColumnValues(String table,Column column) throws SQLException {
+		// to do
+	}
 
-	
-
+	public  Object getAggregateColumnValue(String table,Column column,QUERY_TYPE aggregate) throws SQLException,NoValueException {
+		// to do
+	}
 }

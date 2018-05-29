@@ -19,6 +19,7 @@ public class Example implements Comparable<Example> {
         return example.iterator();
     }
 	
+    @SuppressWarnings("unchecked")
 	public int compareTo(Example ex) {
         Iterator<Object> iter = example.iterator();
         Iterator<Object> iter2 = ex.getIterator();
@@ -38,5 +39,4 @@ public class Example implements Comparable<Example> {
 		}
 		return str;
 	}
-	
 }

@@ -1,58 +1,16 @@
 package data;
 import java.util.Random;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.TreeSet;
 import java.util.Set;
+import database.Example;
 
 public class Data {
     private List<Example> data; // list of transactions
     private int numberOfExamples; // number of transactions
     private List<Attribute> attributeSet;
-
-    class Example implements Comparable<Example> {
-        private List<Object> example = new ArrayList<Object>();
-
-        void add(Object o) {
-            example.add(o);
-        }
-
-        Object get(int i) {
-            return example.get(i);        
-        }
-
-        int size() {
-            return example.size();
-        }
-        
-        public Iterator<Object> getIterator() {
-            return example.iterator();
-        }
-      
-        @SuppressWarnings("unchecked")
-		public int compareTo(Example ex) {
-            Iterator<Object> iter = example.iterator();
-            Iterator<Object> iter2 = ex.getIterator();
-            int match = 0;
-            while(iter.hasNext() && match == 0) {
-                Object obj = iter.next();
-                Object obj2 = iter2.next();
-                match = ((Comparable<Object>)obj).compareTo(obj2);
-            }
-            return match;
-        }
-
-        public String toString() {
-            String str = "";
-            for(Object o: example) {
-                str = str + o.toString();
-            }
-            return str;
-        }
-    }
-    
     public Data() {       
         attributeSet = new LinkedList<Attribute>();
         TreeSet<Example> tempData = new TreeSet<Example>();

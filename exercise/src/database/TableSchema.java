@@ -6,12 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 public class TableSchema {
 	DbAccess db;
-	List<Column> tableSchema = new ArrayList<Column>();
+	List<Column> tableSchema = new ArrayList<Column>(); // list of fields of the table
 	
 	public class Column {
 		private String name;
@@ -38,26 +37,26 @@ public class TableSchema {
 	
 	public TableSchema(DbAccess db, String tableName) throws SQLException {
 		this.db = db;
-		HashMap<String, String> mapSQL_JAVATypes = new HashMap<String, String>();
-		//http://java.sun.com/j2se/1.3/docs/guide/jdbc/getstart/mapping.html
-		mapSQL_JAVATypes.put("CHAR", "string");
-		mapSQL_JAVATypes.put("VARCHAR", "string");
-		mapSQL_JAVATypes.put("LONGVARCHAR", "string");
-		mapSQL_JAVATypes.put("BIT", "string");
-		mapSQL_JAVATypes.put("SHORT", "number");
-		mapSQL_JAVATypes.put("INT", "number");
-		mapSQL_JAVATypes.put("LONG", "number");
-		mapSQL_JAVATypes.put("FLOAT", "number");
-		mapSQL_JAVATypes.put("DOUBLE", "number");
+		HashMap<String, String> SQL_JAVATypes = new HashMap<String, String>();
+		// http://java.sun.com/j2se/1.3/docs/guide/jdbc/getstart/mapping.html
+		SQL_JAVATypes.put("CHAR", "string");
+		SQL_JAVATypes.put("VARCHAR", "string");
+		SQL_JAVATypes.put("LONGVARCHAR", "string");
+		SQL_JAVATypes.put("BIT", "string");
+		SQL_JAVATypes.put("SHORT", "number");
+		SQL_JAVATypes.put("INT", "number");
+		SQL_JAVATypes.put("LONG", "number");
+		SQL_JAVATypes.put("FLOAT", "number");
+		SQL_JAVATypes.put("DOUBLE", "number");
 		
-		Connection con = db.getConnection();
-		DatabaseMetaData meta = con.getMetaData();
+		Connection conn = DbAccess.getConnection();
+		DatabaseMetaData meta = conn.getMetaData();
 	    ResultSet res = meta.getColumns(null, null, tableName, null);   
 	    while(res.next()) {
-	    	if(mapSQL_JAVATypes.containsKey(res.getString("TYPE_NAME"))) {
+	    	if(SQL_JAVATypes.containsKey(res.getString("TYPE_NAME"))) {
 	    		tableSchema.add(new Column(
 	        		res.getString("COLUMN_NAME"),
-	        		mapSQL_JAVATypes.get(res.getString("TYPE_NAME")))
+	        		SQL_JAVATypes.get(res.getString("TYPE_NAME")))
 	        	);
 	    	}     
 	    }
