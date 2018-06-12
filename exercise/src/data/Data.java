@@ -47,14 +47,14 @@ public class Data {
         DbAccess db = new DbAccess();
         Statement stmt = DbAccess.getConnection().createStatement();
         TableSchema schema = new TableSchema(db, table);
-        String query = "SELECT DISTINCT * FROM" + table;
+        String query = "SELECT DISTINCT * FROM " + table;
         ResultSet rs = stmt.executeQuery(query);
         data = new ArrayList<Example>();
         while(rs.next()) {
           Example ex = new Example();
-            for(int i = 0; i < schema.getNumberOfAttributes(); i++) {
-                if(schema.getColumn(i).isNumber()) {
-                  ex.add(rs.getFloat(i));
+            for(int i = 1; i < schema.getNumberOfAttributes()+1; i++) {
+                if(schema.getColumn(i-1).isNumber()) {
+                  ex.add(rs.getDouble(i));
                 } else {
                   ex.add(rs.getString(i));
                 }
