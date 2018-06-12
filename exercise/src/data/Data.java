@@ -52,8 +52,8 @@ public class Data {
         data = new ArrayList<Example>();
         while(rs.next()) {
           Example ex = new Example();
-            for(int i = 1; i < schema.getNumberOfAttributes()+1; i++) {
-                if(schema.getColumn(i-1).isNumber()) {
+            for(int i = 1; i < schema.getNumberOfAttributes() + 1; i++) {
+                if(schema.getColumn(i - 1).isNumber()) {
                   ex.add(rs.getDouble(i));
                 } else {
                   ex.add(rs.getString(i));
