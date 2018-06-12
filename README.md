@@ -13,3 +13,7 @@ Then open Eclipse, right-click on the project you want to work on and refresh <b
 $git add . <br />
 $git commit -m "the text you want"
 $git push origin master
+
+# JDBC-Connector:
+Download it from: https://dev.mysql.com/downloads/connector/j/3.1.html <br />
+Open Eclipse->Right click on project->Properties->Java Build Path->Libraries->Add External Jars->Select Connector.
