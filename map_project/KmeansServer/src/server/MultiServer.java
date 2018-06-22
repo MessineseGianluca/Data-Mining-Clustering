@@ -1,36 +1,45 @@
 package server;
 
+import mining.KmeansMiner;
 import java.io.*;
-import java.net.ServerSocket;
 import java.net.Socket;
 
-public class MultiServer {
-    private int PORT = 8080;
+public class ServerOneClient extends Thread {
+    private Socket socket;
+    private ObjectInputStream in;
+    private ObjectOutputStream out;
+    private KmeansMiner kmeans;
     
-    public MultiServer(int port) throws IOException {
-        this.PORT = port;
-        this.run();
+    public ServerOneClient(Socket s) throws IOException {
+        socket = s;
+        in = new ObjectInputStream(socket.getInputStream());
+        out = new ObjectOutputStream(socket.getOutputStream());
+        start(); 
     }
-  
-    public void run() throws IOException {
-        ServerSocket s = new ServerSocket(PORT);
-        System.out.println("Server Started");
+        
+    public void run() 
+        throws ClassNotFoundException, IllegalAccessException, InstantiationException, DatabaseConnectionException, SQLException 
+    {
         try {
-            while(true) {
-                Socket socket = s.accept();
-                try {
-                    new ServerOneClient(socket);
-                } catch(IOException e) {
-                    socket.close();
-                }
+            Request req = (Request)in.readObject();
+            switch (req.getMenuChoice()) {
+                case 1:
+                    
+                    break;
+                case 2:
+                    
+                    break;
             }
+            
+            System.out.println("Closing request...");
+        } catch(IOException e) {
+            System.err.println("IO Exception");
         } finally {
-            s.close();
+            try {
+                socket.close();
+            } catch(IOException e) {
+                System.err.println("Socket not closed");
+            }  
         }
     }
-
-    public static void main(String[] args) throws IOException {
-        int port = 8080;
-        new MultiServer(port);
-    } 
 }

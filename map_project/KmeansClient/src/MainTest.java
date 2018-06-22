@@ -18,26 +18,27 @@ public class MainTest {
     
     public static void main(String[] args) throws IOException {
         InetAddress addr = InetAddress.getByName("localhost");
-        ObjectInputStream in;
-        ObjectOutputStream out;
         int port = 8080;
-        Socket socket = new Socket(addr, port);
-        try {
-            in = new ObjectInputStream(socket.getInputStream());
-            out = new ObjectOutputStream(socket.getOutputStream());
-            do {
+        do {
+        	Socket socket = null;
+        	ObjectOutputStream out;
+        	ObjectInputStream in;
+            try {
+                socket = new Socket(addr, port);       
+                in = new ObjectInputStream(socket.getInputStream());
+                out = new ObjectOutputStream(socket.getOutputStream());
                 int menuAnswer = menu(); // print menu()
                 Request req = null;
                 String fileName = "";
                 System.out.print("Archive name: ");
                 fileName = Keyboard.readString();
-                
+
                 // Parse request to send
                 switch(menuAnswer) {
                     case 1:
                         req = new ReadRequest(menuAnswer, fileName);
-                    	break;
-                      
+                        break;
+
                     case 2: 
                         int numberClusters;
                         String table;
@@ -48,7 +49,7 @@ public class MainTest {
                         req = new WriteRequest(menuAnswer, fileName, numberClusters, table);
                         break;
                    default:
-                   	    System.out.println("Invalid operation!");
+                           System.out.println("Invalid operation!");
                 }
                 try {
                     // Send request 
@@ -58,15 +59,15 @@ public class MainTest {
                 } catch(ServerException e) {
                     System.out.println(e.getMessage());
                 } catch(ClassNotFoundException e) {
-                	System.out.println("Class not found.");
+                    System.out.println("Class not found.");
                 }
                 System.out.print("Do you want to choose another operation from the menu?(y/n): ");
-                if(Keyboard.readChar() != 'y') break;
-            } while(true);
-        } catch(IOException e) {
-          System.out.println(e.getMessage());  
-        } finally {
-			socket.close();
-        }
-    }
+                if(Keyboard.readChar() != 'y') break;   
+            } catch(IOException e) {
+                System.out.println(e.getMessage());  
+            } finally {
+            	if(socket != null) socket.close();
+            }
+        } while(true);
+    } 
 }
