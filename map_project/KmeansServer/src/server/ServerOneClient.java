@@ -26,14 +26,11 @@ public class ServerOneClient extends Thread {
     public void run() {
         try {
             Request req = (Request)in.readObject();
-            System.out.println("Here");
-
             switch (req.getMenuChoice()) {
                 case 1:
+                	System.out.println("Executing ReadRequest...");
                     try {
-                    	
                         KmeansMiner kmeans = new KmeansMiner(req.getFileName() + ".dmp");
-                        
                         out.writeObject(kmeans.toString());
                     } catch (FileNotFoundException e1) {
                         e1.printStackTrace();
@@ -44,26 +41,29 @@ public class ServerOneClient extends Thread {
                     }
                     break;
                 case 2:
+                	System.out.println("Executing WriteRequest...");
                     try { 
                         DbAccess.initConnection();
                         String table = ((WriteRequest) req).getDBtableName();
                         Data data = new Data(table);  
-                        System.out.println(data);
                         int k = ((WriteRequest) req).getNumberOfClusters();                        
                         KmeansMiner kmeans = new KmeansMiner(k);
                         try {
                             int numIter = kmeans.kmeans(data);
-                            System.out.println("Number of iterations: " + numIter);
-                            System.out.println("Saving in " + req.getFileName());
+                            System.out.println("Saving in " + req.getFileName() + ".dmp...");
                             try {
-                                kmeans.save(req.getFileName());
+                                kmeans.save(req.getFileName() + ".dmp");
                             } catch (FileNotFoundException e) {
                                 e.printStackTrace();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            System.out.println("End of saving operations!");
-                            out.writeObject(kmeans.getC().toString(data));
+                            out.writeObject(
+                            		data + 
+                            		"\nNumber of iterations: " + 
+                            		numIter + "\n" + 
+                            		kmeans.getC().toString(data)
+                            );
                         } catch(OutOfRangeSampleSize e) {
                             System.out.println(e.getMessage());
                         }
