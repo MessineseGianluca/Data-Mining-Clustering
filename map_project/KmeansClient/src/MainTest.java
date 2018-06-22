@@ -27,7 +27,6 @@ public class MainTest {
         System.out.print("Archive name: ");
         fileName = Keyboard.readString();
         return new KmeansMiner(fileName + ".dmp");
-        
     }
     
     public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException, DatabaseConnectionException, SQLException {
