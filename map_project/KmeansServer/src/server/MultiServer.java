@@ -1,17 +1,18 @@
 package server;
 
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class MultiServer {
     private int PORT = 8080;
     
-    public MultiServer(int port) {
+    public MultiServer(int port) throws IOException {
         this.PORT = port;
         this.run();
     }
   
-    public void run() {
+    public void run() throws IOException {
         ServerSocket s = new ServerSocket(PORT);
         System.out.println("Server Started");
         try {
@@ -28,7 +29,7 @@ public class MultiServer {
         }
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         int port = 8080;
         new MultiServer(port);
     } 
