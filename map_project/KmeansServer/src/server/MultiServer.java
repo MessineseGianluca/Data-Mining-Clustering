@@ -5,7 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class MultiServer {
-    private int PORT = 8080;
+    private int PORT = 8000;
     
     public MultiServer(int port) throws IOException {
         this.PORT = port;
@@ -30,7 +30,7 @@ public class MultiServer {
     }
 
     public static void main(String[] args) throws IOException {
-        int port = 8080;
+        int port = 8000;
         new MultiServer(port);
     } 
 }

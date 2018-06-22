@@ -9,7 +9,7 @@ public class MainTest {
         System.out.println("Select an operation");
         do {
             System.out.println("(1) Load cluster from file");
-            System.out.println("(2) Load data");
+            System.out.println("(2) Generate and write data");
             System.out.print("Answer: ");
             answer = Keyboard.readInt();
         } while(answer <= 0 || answer > 2);
@@ -17,22 +17,21 @@ public class MainTest {
     }
     
     public static void main(String[] args) throws IOException {
-        InetAddress addr = InetAddress.getByName("localhost");
-        int port = 8080;
+        InetAddress addr = InetAddress.getByName("127.0.0.1");
+        int port = 8000;
         do {
         	Socket socket = null;
         	ObjectOutputStream out;
         	ObjectInputStream in;
             try {
-                socket = new Socket(addr, port);       
-                in = new ObjectInputStream(socket.getInputStream());
-                out = new ObjectOutputStream(socket.getOutputStream());
+                socket = new Socket(addr, port);
                 int menuAnswer = menu(); // print menu()
                 Request req = null;
                 String fileName = "";
                 System.out.print("Archive name: ");
                 fileName = Keyboard.readString();
-
+                in = new ObjectInputStream(socket.getInputStream());
+                out = new ObjectOutputStream(socket.getOutputStream());
                 // Parse request to send
                 switch(menuAnswer) {
                     case 1:
@@ -56,8 +55,6 @@ public class MainTest {
                     out.writeObject(req);
                     // Write response
                     System.out.println((String)in.readObject());
-                } catch(ServerException e) {
-                    System.out.println(e.getMessage());
                 } catch(ClassNotFoundException e) {
                     System.out.println("Class not found.");
                 }
