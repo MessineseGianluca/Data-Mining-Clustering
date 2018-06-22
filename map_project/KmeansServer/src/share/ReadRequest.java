@@ -1,3 +1,5 @@
+package share;
+
 public class ReadRequest extends Request {
 	private static final long serialVersionUID = 1L;
 

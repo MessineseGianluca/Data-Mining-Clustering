@@ -1,3 +1,5 @@
+package share;
+
 import java.io.Serializable;
 
 public class Request implements Serializable {
@@ -8,7 +10,7 @@ public class Request implements Serializable {
     public Request(int menuChoice, String fileName) {
         this.menuChoice = menuChoice;
         this.fileName = fileName;
-    }
+    }  
     
     public int getMenuChoice() {
         return menuChoice;

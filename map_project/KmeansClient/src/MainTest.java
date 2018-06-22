@@ -1,4 +1,8 @@
 import keyboardinput.Keyboard;
+import share.ReadRequest;
+import share.Request;
+import share.WriteRequest;
+
 import java.net.Socket;
 import java.net.InetAddress;
 import java.io.*;

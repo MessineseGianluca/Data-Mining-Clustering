@@ -1,6 +1,8 @@
 package server;
 
 import mining.KmeansMiner;
+import share.Request;
+import share.WriteRequest;
 import data.Data;
 import data.OutOfRangeSampleSize;
 import java.sql.SQLException;
@@ -25,6 +27,7 @@ public class ServerOneClient extends Thread {
         try {
             Request req = (Request)in.readObject();
             System.out.println("Here");
+
             switch (req.getMenuChoice()) {
                 case 1:
                     try {

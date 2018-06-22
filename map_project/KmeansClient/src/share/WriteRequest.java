@@ -1,3 +1,4 @@
+package share;
 public class WriteRequest extends Request {
 	private static final long serialVersionUID = 1L;
 	private String DBtableName;
