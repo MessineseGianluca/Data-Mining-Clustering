@@ -13,7 +13,7 @@ public class WriteRequest extends Request {
         return DBtableName;
     }
     
-    public int getnumberOfClusters() {
+    public int getNumberOfClusters() {
         return numberOfClusters;
     }
 }

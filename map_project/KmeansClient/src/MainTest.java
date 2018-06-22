@@ -45,7 +45,7 @@ public class MainTest {
                         System.out.println("How many clusters do you want to calculate?: ");
                         numberClusters = Keyboard.readInt();
                         System.out.println("What is the name of the table to analyze?: ");
-                        table = Keyboard.readString();
+                        table = Keyboard.readString();	// Use "playtennis" as existing table name
                         req = new WriteRequest(menuAnswer, fileName, numberClusters, table);
                         break;
                    default:
