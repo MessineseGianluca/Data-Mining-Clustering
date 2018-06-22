@@ -16,8 +16,8 @@ public class ServerOneClient extends Thread {
     
     public ServerOneClient(Socket s) throws IOException {
         socket = s;
-        in = new ObjectInputStream(socket.getInputStream());
         out = new ObjectOutputStream(socket.getOutputStream());
+        in = new ObjectInputStream(socket.getInputStream());
         start(); 
     }
         
@@ -27,7 +27,9 @@ public class ServerOneClient extends Thread {
             switch (req.getMenuChoice()) {
                 case 1:
                     try {
+                    	
                         KmeansMiner kmeans = new KmeansMiner(req.getFileName() + ".dmp");
+                        
                         out.writeObject(kmeans.toString());
                     } catch (FileNotFoundException e1) {
                         e1.printStackTrace();

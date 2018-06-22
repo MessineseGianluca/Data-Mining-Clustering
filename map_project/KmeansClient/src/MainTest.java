@@ -25,13 +25,13 @@ public class MainTest {
         	ObjectInputStream in;
             try {
                 socket = new Socket(addr, port);
+                out = new ObjectOutputStream(socket.getOutputStream());
+                in = new ObjectInputStream(socket.getInputStream());
                 int menuAnswer = menu(); // print menu()
                 Request req = null;
                 String fileName = "";
                 System.out.print("Archive name: ");
                 fileName = Keyboard.readString();
-                in = new ObjectInputStream(socket.getInputStream());
-                out = new ObjectOutputStream(socket.getOutputStream());
                 // Parse request to send
                 switch(menuAnswer) {
                     case 1:
