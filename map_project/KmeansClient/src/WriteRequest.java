@@ -1,5 +1,6 @@
 public class WriteRequest extends Request {
-    private String DBtableName;
+	private static final long serialVersionUID = 1L;
+	private String DBtableName;
     private int numberOfClusters;
     
     public WriteRequest(int menuChoice, String fileName, int numberOfClusters, String table) {

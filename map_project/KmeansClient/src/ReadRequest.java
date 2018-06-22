@@ -1,5 +1,7 @@
 public class ReadRequest extends Request {
-    public ReadRequest(int menuChoice, String fileName) {
+	private static final long serialVersionUID = 1L;
+
+	public ReadRequest(int menuChoice, String fileName) {
         super(menuChoice, fileName);
     }   
 }

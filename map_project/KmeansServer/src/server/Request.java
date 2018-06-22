@@ -1,6 +1,10 @@
 package server;
-public class Request {
-    private int menuChoice;
+
+import java.io.Serializable;
+
+public class Request implements Serializable {
+	private static final long serialVersionUID = 1L;
+	private int menuChoice;
     private String fileName;
     
     public Request(int menuChoice, String fileName) {

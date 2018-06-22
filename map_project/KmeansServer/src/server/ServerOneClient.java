@@ -24,6 +24,7 @@ public class ServerOneClient extends Thread {
     public void run() {
         try {
             Request req = (Request)in.readObject();
+            System.out.println("Here");
             switch (req.getMenuChoice()) {
                 case 1:
                     try {
@@ -77,7 +78,7 @@ public class ServerOneClient extends Thread {
             }
             System.out.println("Closing request...");
         } catch(IOException e) {
-            System.err.println("IO Exception");
+            e.printStackTrace();
         } catch (ClassNotFoundException e1) {
                 e1.printStackTrace();
         } finally {
