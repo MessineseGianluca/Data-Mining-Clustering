@@ -32,12 +32,15 @@ public class ServerOneClient extends Thread {
                     try {
                         KmeansMiner kmeans = new KmeansMiner(req.getFileName() + ".dmp");
                         out.writeObject(kmeans.toString());
-                    } catch (FileNotFoundException e1) {
-                        e1.printStackTrace();
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    } catch (ClassNotFoundException e1) {
-                        e1.printStackTrace();
+                    } catch (FileNotFoundException e) {
+                        System.out.println(e.getMessage());
+                        out.writeObject(e.getMessage());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        out.writeObject("Error from the server, please try again.");
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                        out.writeObject("Error from the server, please try again.");
                     }
                     break;
                 case 2:
@@ -54,9 +57,11 @@ public class ServerOneClient extends Thread {
                             try {
                                 kmeans.save(req.getFileName() + ".dmp");
                             } catch (FileNotFoundException e) {
-                                e.printStackTrace();
+                                System.out.println(e.getMessage());
+                                out.writeObject(e.getMessage());
                             } catch (IOException e) {
                                 e.printStackTrace();
+                                out.writeObject("Error from the server, please try again.");
                             }
                             out.writeObject(
                             		data +
@@ -73,20 +78,34 @@ public class ServerOneClient extends Thread {
                         }
                     } catch(SQLException e) {
                         System.out.println(e.getMessage());
+                        out.writeObject(e.getMessage());
                     } catch(IllegalAccessException e) {
                         System.out.println(e.getMessage());
+                        out.writeObject("Error from the server, please try again.");
                     } catch(InstantiationException e) {
                         System.out.println(e.getMessage());
+                        out.writeObject("Error from the server, please try again.");
                     } catch(DatabaseConnectionException e) {
                         System.out.println(e.getMessage());
+                        out.writeObject("Error from the server, please try again.");
                     }
                     break;
             }
             System.out.println("Closing request...");
         } catch(IOException e) {
             e.printStackTrace();
+            try {
+				out.writeObject("Error from the server, please try again.");
+			} catch (IOException e1) {
+				e.printStackTrace();
+			}
         } catch (ClassNotFoundException e) {
                 e.printStackTrace();
+                try {
+    				out.writeObject("Error from the server, please try again.");
+    			} catch (IOException e1) {
+    				e.printStackTrace();
+    			}
         } finally {
             try {
                 socket.close();

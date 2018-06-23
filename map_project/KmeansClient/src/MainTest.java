@@ -37,11 +37,10 @@ public class MainTest {
                 fileName = Keyboard.readString();
                 // Parse request to send
                 switch(menuAnswer) {
-                    case 1:
+                	case 1:
                         req = new ReadRequest(menuAnswer, fileName);
                         break;
-
-                    case 2: 
+                    case 2:                    	
                         int numberClusters;
                         String table;
                         System.out.println("How many clusters do you want to calculate?: ");
@@ -50,8 +49,8 @@ public class MainTest {
                         table = Keyboard.readString();	// Use "playtennis" as existing table name
                         req = new WriteRequest(menuAnswer, fileName, numberClusters, table);
                         break;
-                   default:
-                           System.out.println("Invalid operation!");
+                    default:
+                    	System.out.println("Invalid operation!");
                 }
                 try {
                     // Send request 
