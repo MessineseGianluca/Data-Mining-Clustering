@@ -21,6 +21,10 @@ public abstract class Attribute implements Serializable {
 		return index;
 	}
 	
+	static void resetAttributesCount() {
+		count = 0;
+	}
+	
 	public String toString() {
 		return name;
 	}

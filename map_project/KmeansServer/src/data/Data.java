@@ -15,34 +15,35 @@ public class Data {
     private List<Example> data; // list of transactions
     private int numberOfExamples; // number of transactions
     private List<Attribute> attributeSet;
-    public Data(String table) throws SQLException {       
+    public Data(String table) throws SQLException {
         attributeSet = new LinkedList<Attribute>();
-        
+        Attribute.resetAttributesCount();
+
         /* Populate attributeSet */
         TreeSet<String> outLookValues = new TreeSet<String>();
         outLookValues.add("overcast");
         outLookValues.add("rain");
         outLookValues.add("sunny");
         attributeSet.add(new DiscreteAttribute("Outlook", outLookValues));
-        
-        
+
+
         attributeSet.add(new ContinuousAttribute("Temperature", 3.2, 38.7));
-        
+
         TreeSet<String> humidityValues = new TreeSet<String>();
         humidityValues.add("normal");
         humidityValues.add("high");
         attributeSet.add(new DiscreteAttribute("Humidity", humidityValues));
-        
+
         TreeSet<String> windValues = new TreeSet<String>();
         windValues.add("weak");
         windValues.add("strong");
         attributeSet.add(new DiscreteAttribute("Wind", windValues));
-        
+
         TreeSet<String> playTennisValues = new TreeSet<String>();
         playTennisValues.add("yes");
         playTennisValues.add("no");
         attributeSet.add(new DiscreteAttribute("Play Tennis", playTennisValues));
-        
+
         /* Add examples */
         DbAccess db = new DbAccess();
         Statement stmt = DbAccess.getConnection().createStatement();
@@ -61,25 +62,25 @@ public class Data {
             }
             data.add(ex);
         }
-        numberOfExamples = data.size();  
+        numberOfExamples = data.size();
     }
-    
+
     public int getNumberOfExamples() {
         return numberOfExamples;
     }
-    
+
     public int getNumberOfAttributes() {
         return attributeSet.size();
     }
-    
+
     public Object getAttributeValue(int exampleIndex, int attributeIndex) {
         return data.get(exampleIndex).get(attributeIndex);
     }
-    
+
     Attribute getAttribute(int index) {
         return attributeSet.get(index);
     }
-    
+
     public String toString() {
         String str = "";
         // print attributes
@@ -97,7 +98,7 @@ public class Data {
         }
         return str;
     }
-    
+
     public Tuple getItemSet(int index) {
         Tuple tuple = new Tuple(attributeSet.size());
         int i;
@@ -117,15 +118,18 @@ public class Data {
         }
         return tuple;
     }
-    
-    /* k is the number of cluster to generate. This method return a k dimension array, whose 
+
+    /* k is the number of cluster to generate. This method return a k dimension array, whose
      * elements represent the index of the tuples(row index of data matrix) which
      * have been initially chosen as centroids(first step of k-means)
      */
 
     public int[] sampling(int k) throws OutOfRangeSampleSize {
         // exception
-        if(k <= 0 || k > numberOfExamples) throw new OutOfRangeSampleSize();
+        if(k <= 0 || k > numberOfExamples) {
+            System.out.println("Here");
+            throw new OutOfRangeSampleSize();
+        }
         int centroidIndexes[] = new int[k];
         // choose k random different centroids in data.
         Random rand = new Random();
@@ -145,12 +149,12 @@ public class Data {
                         break;
                     }
                 }
-            } while(found);        
+            } while(found);
             centroidIndexes[i] = c;
         }
         return centroidIndexes;
     }
-    
+
     private boolean compare(int i, int j) {
         boolean equal = true;
         int k = 0;
@@ -170,7 +174,7 @@ public class Data {
         	return computePrototype(idList, (DiscreteAttribute) attribute);
         }
     }
-    
+
     private String computePrototype(Set<Integer> idList, DiscreteAttribute attribute) {
         int comp;
         int freq = 0;
@@ -185,9 +189,8 @@ public class Data {
         }
         return centroid;
     }
-    
+
     private Double computePrototype(Set<Integer> idList, ContinuousAttribute attribute) {
     	return attribute.getAVG(this, idList);
     }
 }
-

@@ -15,14 +15,14 @@ public class ServerOneClient extends Thread {
     private Socket socket;
     private ObjectInputStream in;
     private ObjectOutputStream out;
-    
+
     public ServerOneClient(Socket s) throws IOException {
         socket = s;
         out = new ObjectOutputStream(socket.getOutputStream());
         in = new ObjectInputStream(socket.getInputStream());
-        start(); 
+        start();
     }
-        
+
     public void run() {
         try {
             Request req = (Request)in.readObject();
@@ -42,11 +42,11 @@ public class ServerOneClient extends Thread {
                     break;
                 case 2:
                 	System.out.println("Executing WriteRequest...");
-                    try { 
+                    try {
                         DbAccess.initConnection();
                         String table = ((WriteRequest) req).getDBtableName();
-                        Data data = new Data(table);  
-                        int k = ((WriteRequest) req).getNumberOfClusters();                        
+                        Data data = new Data(table);
+                        int k = ((WriteRequest) req).getNumberOfClusters();
                         KmeansMiner kmeans = new KmeansMiner(k);
                         try {
                             int numIter = kmeans.kmeans(data);
@@ -59,15 +59,18 @@ public class ServerOneClient extends Thread {
                                 e.printStackTrace();
                             }
                             out.writeObject(
-                            		data + 
-                            		"\nNumber of iterations: " + 
-                            		numIter + "\n" + 
+                            		data +
+                            		"\nNumber of iterations: " +
+                            		numIter + "\n" +
                             		kmeans.getC().toString(data)
                             );
                         } catch(OutOfRangeSampleSize e) {
-                            System.out.println(e.getMessage());
+                        	String str = "Invalid number of clusters.";
+                            System.out.println(str);
+                            out.writeObject(str);
+                        } finally {
+                        	 DbAccess.closeConnection();
                         }
-                        DbAccess.closeConnection();
                     } catch(SQLException e) {
                         System.out.println(e.getMessage());
                     } catch(IllegalAccessException e) {
@@ -82,14 +85,14 @@ public class ServerOneClient extends Thread {
             System.out.println("Closing request...");
         } catch(IOException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e1) {
-                e1.printStackTrace();
+        } catch (ClassNotFoundException e) {
+                e.printStackTrace();
         } finally {
             try {
                 socket.close();
             } catch(IOException e) {
                 System.err.println("Socket not closed");
-            }  
+            }
         }
     }
 }
