@@ -20,12 +20,12 @@ public class KMeans extends JApplet {
   
     class TabbedPane extends JPanel {
         private static final long serialVersionUID = 1L;
-        private JPanelCluster panelDB;
-        private JPanelCluster panelFile;
+        private JPanelWrite panelWrite;
+        private JPanelRead panelRead;
     
         public TabbedPane() {
             JTabbedPane tabbedPane = new JTabbedPane();
-            ActionListener actionDB = new ActionListener() {
+            ActionListener actionWrite = new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     try {
                         learningFromDBAction();
@@ -36,7 +36,7 @@ public class KMeans extends JApplet {
                     }
                 }
             };
-            ActionListener actionFILE = new ActionListener() {
+            ActionListener actionRead = new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     try {
                         learningFromFileAction();
@@ -47,17 +47,15 @@ public class KMeans extends JApplet {
                     }  
                 }
             };
-            this.panelDB = new JPanelCluster("Send", actionDB);
-            this.panelFile = new JPanelCluster("Send", actionFILE);
-            tabbedPane.addTab("Write to File", panelDB);
-            tabbedPane.addTab("Read File", panelFile);
+            this.panelWrite = new JPanelWrite("Send", actionWrite);
+            this.panelRead = new JPanelRead("Send", actionRead);
+            tabbedPane.addTab("Write to File", panelWrite);
+            tabbedPane.addTab("Read File", panelRead);
             this.add(tabbedPane);
         }
     
         private void learningFromDBAction() throws IOException, ClassNotFoundException {
-        	panelDB.clusterOutput.setText(null);
-        	Request req = null;
-            String fileName = "data";
+            Request req = null;
             int numberClusters;
             InetAddress addr = InetAddress.getByName("127.0.0.1");
             int port = 8000;
@@ -65,13 +63,14 @@ public class KMeans extends JApplet {
             try {
                 out = new ObjectOutputStream(socket.getOutputStream());
                 in = new ObjectInputStream(socket.getInputStream());
-                numberClusters = Integer.parseInt(panelDB.kText.getText());
-                String table = panelDB.tableText.getText();
+                numberClusters = panelWrite.getNumberOfClusters();
+                String table = panelWrite.getTable();
+                String fileName = panelWrite.getFile();
                 req = new WriteRequest(2, fileName, numberClusters, table);
                 // Send request 
                 out.writeObject(req);
                 // Write response
-                panelDB.clusterOutput.append((String)in.readObject());
+                panelWrite.setOutputTextArea((String)in.readObject());
             } catch(NumberFormatException e) { 
                 JOptionPane.showMessageDialog(this, e.toString());
             } catch(ClassNotFoundException e) {
@@ -86,20 +85,20 @@ public class KMeans extends JApplet {
         }
         
         private void learningFromFileAction() throws IOException, ClassNotFoundException {
-        	panelFile.clusterOutput.setText(null);
-        	Request req = null;
-            String fileName = "data";
+            panelRead.clusterOutput.setText(null);
+            Request req = null;
             InetAddress addr = InetAddress.getByName("127.0.0.1");
             int port = 8000;
             Socket socket = new Socket(addr, port);
             try {
                 out = new ObjectOutputStream(socket.getOutputStream());
                 in = new ObjectInputStream(socket.getInputStream());
+                String fileName = panelRead.getFile();
                 req = new ReadRequest(1, fileName);
                 // Send request 
                 out.writeObject(req);
                 // Write response
-                panelFile.clusterOutput.append((String)in.readObject());
+                panelRead.setOutputTextArea((String)in.readObject());
             } catch(NumberFormatException e) { 
                 JOptionPane.showMessageDialog(this, e.toString());
             } catch(ClassNotFoundException e) {
@@ -114,16 +113,18 @@ public class KMeans extends JApplet {
         }
         
         
-        class JPanelCluster extends JPanel {
+        class JPanelWrite extends JPanel {
             private static final long serialVersionUID = 1L;
-            JTextField tableText = new JTextField(20);
-            JTextField kText = new JTextField(10);
-            JTextArea clusterOutput = new JTextArea();
+            private JTextField tableText = new JTextField(20);
+            private JTextField fileText = new JTextField(20);
+            private JTextField kText = new JTextField(10);
+            private JTextArea clusterOutput = new JTextArea();
             private JButton executeButton = new JButton();
             private JLabel tableLabel = new JLabel("Table:");
-            private JLabel kLabel = new JLabel("Num of clusters: "); 
+            private JLabel kLabel = new JLabel("Num of clusters: ");
+            private JLabel fileLabel = new JLabel("File: ");
             
-            JPanelCluster(String buttonName, ActionListener a) { 
+            JPanelWrite(String buttonName, ActionListener a) { 
                 GroupLayout layout = new GroupLayout(this);
                 JScrollPane scrollingArea = new JScrollPane(
                     clusterOutput, 
@@ -132,8 +133,8 @@ public class KMeans extends JApplet {
                 );
                 clusterOutput.setEditable(false);
                 clusterOutput.setLineWrap(true);
-                scrollingArea.setPreferredSize(new Dimension(580, 200));
-                scrollingArea.setMaximumSize(new Dimension(580, 200));
+                scrollingArea.setPreferredSize(new Dimension(780, 200));
+                scrollingArea.setMaximumSize(new Dimension(780, 200));
                 scrollingArea.setVisible(true);
                 scrollingArea.setAlignmentX(RIGHT_ALIGNMENT);
                 clusterOutput.setWrapStyleWord(true);
@@ -151,6 +152,8 @@ public class KMeans extends JApplet {
                         .addComponent(tableText)
                         .addComponent(kLabel)
                         .addComponent(kText)
+                        .addComponent(fileLabel)
+                        .addComponent(fileText)
                     )
                     .addGroup(
                         layout.createParallelGroup()
@@ -172,6 +175,8 @@ public class KMeans extends JApplet {
                         .addComponent(tableText)
                         .addComponent(kLabel)
                         .addComponent(kText)
+                        .addComponent(fileLabel)
+                        .addComponent(fileText)
                     )
                     .addGroup(
                         layout.createSequentialGroup()
@@ -183,13 +188,101 @@ public class KMeans extends JApplet {
                     )
                 );
             }
+            
+            public int getNumberOfClusters() {
+                return Integer.parseInt(kText.getText());
+            }
+            
+            public String getTable() {
+                return tableText.getText();
+            }
+            
+            public String getFile() {
+                return fileText.getText();
+            }
+          
+            public void setOutputTextArea(String s) {
+                clusterOutput.setText(s);
+            }
+        }
+        
+        class JPanelRead extends JPanel {
+            private static final long serialVersionUID = 1L;
+            private JTextField fileText = new JTextField(20);
+            private JTextArea clusterOutput = new JTextArea();
+            private JButton executeButton = new JButton();
+            private JLabel fileLabel = new JLabel("File:");
+            
+            JPanelRead(String buttonName, ActionListener a) { 
+                GroupLayout layout = new GroupLayout(this);
+                JScrollPane scrollingArea = new JScrollPane(
+                    clusterOutput, 
+                    JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
+                    JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED
+                );
+                clusterOutput.setEditable(false);
+                clusterOutput.setLineWrap(true);
+                scrollingArea.setPreferredSize(new Dimension(780, 200));
+                scrollingArea.setMaximumSize(new Dimension(780, 200));
+                scrollingArea.setVisible(true);
+                scrollingArea.setAlignmentX(RIGHT_ALIGNMENT);
+                clusterOutput.setWrapStyleWord(true);
+                executeButton.setText(buttonName);
+                executeButton.setSize(new Dimension(50, 100));
+                executeButton.addActionListener(a);
+                this.setLayout(layout);
+                layout.setAutoCreateContainerGaps(true);
+                layout.setAutoCreateGaps(true);
+                layout.setVerticalGroup(
+                    layout.createSequentialGroup()
+                    .addGroup(
+                        layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(fileLabel)
+                        .addComponent(fileText)
+                    )
+                    .addGroup(
+                        layout.createParallelGroup()
+                        .addComponent(
+                            scrollingArea,
+                            GroupLayout.PREFERRED_SIZE, 
+                            GroupLayout.DEFAULT_SIZE, 
+                            GroupLayout.PREFERRED_SIZE
+                        )
+                    )
+                    .addComponent(executeButton)
+                );
+                
+                layout.setHorizontalGroup(
+                    layout.createParallelGroup()
+                    .addGroup(
+                        layout.createSequentialGroup()
+                        .addComponent(fileLabel)
+                        .addComponent(fileText)
+                    )
+                    .addGroup(
+                        layout.createSequentialGroup()
+                        .addComponent(scrollingArea)
+                    )
+                    .addGroup(
+                        layout.createParallelGroup(GroupLayout.Alignment.CENTER)
+                        .addComponent(executeButton)
+                    )
+                );
+            }
+            
+            public String getFile() {
+                return fileText.getText();
+            }
+            public void setOutputTextArea(String s) {
+                clusterOutput.setText(s);
+            }
         }
     }
   
     public void init() {
         JFrame frame = new JFrame();
         frame.setTitle("Clustering");
-        frame.setSize(600, 345);
+        frame.setSize(800, 345);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         TabbedPane tab = new TabbedPane();
