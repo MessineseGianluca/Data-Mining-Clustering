@@ -2,9 +2,7 @@ package client;
 
 // <applet code=KMeans.class width=600 height=600>
 // </applet>
-import java.awt.ComponentOrientation;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -49,15 +47,16 @@ public class KMeans extends JApplet {
                     }  
                 }
             };
-            this.panelDB = new JPanelCluster("DB", actionDB);
-            this.panelFile = new JPanelCluster("File", actionFILE);
-            tabbedPane.addTab("DB", panelDB);
-            tabbedPane.addTab("File", panelFile);
+            this.panelDB = new JPanelCluster("Send", actionDB);
+            this.panelFile = new JPanelCluster("Send", actionFILE);
+            tabbedPane.addTab("Write to File", panelDB);
+            tabbedPane.addTab("Read File", panelFile);
             this.add(tabbedPane);
         }
     
         private void learningFromDBAction() throws IOException, ClassNotFoundException {
-            Request req = null;
+        	panelDB.clusterOutput.setText(null);
+        	Request req = null;
             String fileName = "data";
             int numberClusters;
             InetAddress addr = InetAddress.getByName("127.0.0.1");
@@ -87,7 +86,8 @@ public class KMeans extends JApplet {
         }
         
         private void learningFromFileAction() throws IOException, ClassNotFoundException {
-            Request req = null;
+        	panelFile.clusterOutput.setText(null);
+        	Request req = null;
             String fileName = "data";
             InetAddress addr = InetAddress.getByName("127.0.0.1");
             int port = 8000;
@@ -113,36 +113,75 @@ public class KMeans extends JApplet {
             }
         }
         
+        
         class JPanelCluster extends JPanel {
             private static final long serialVersionUID = 1L;
             JTextField tableText = new JTextField(20);
             JTextField kText = new JTextField(10);
             JTextArea clusterOutput = new JTextArea();
             private JButton executeButton = new JButton();
-            private JPanel upPanel, centralPanel, downPanel;
             private JLabel tableLabel = new JLabel("Table:");
-            private JLabel kLabel = new JLabel("k");               
+            private JLabel kLabel = new JLabel("Num of clusters: "); 
             
-            JPanelCluster(String buttonName, ActionListener a) {
-                setLayout(new GridLayout(5, 4)); 
-                upPanel = new JPanel();
-                upPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT); 
-                centralPanel = new JPanel();
-                downPanel = new JPanel();
-                upPanel.add(tableLabel);
-                upPanel.add(tableText);
-                upPanel.add(kLabel);
-                upPanel.add(kText);
-                centralPanel.add(clusterOutput);
+            JPanelCluster(String buttonName, ActionListener a) { 
+                GroupLayout layout = new GroupLayout(this);
+                JScrollPane scrollingArea = new JScrollPane(
+                    clusterOutput, 
+                    JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
+                    JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED
+                );
+                clusterOutput.setEditable(false);
+                clusterOutput.setLineWrap(true);
+                scrollingArea.setPreferredSize(new Dimension(580, 200));
+                scrollingArea.setMaximumSize(new Dimension(580, 200));
+                scrollingArea.setVisible(true);
+                scrollingArea.setAlignmentX(RIGHT_ALIGNMENT);
+                clusterOutput.setWrapStyleWord(true);
                 executeButton.setText(buttonName);
-                executeButton.setSize(new Dimension(10, 20));
+                executeButton.setSize(new Dimension(50, 100));
                 executeButton.addActionListener(a);
-                downPanel.add(executeButton);
-                add(upPanel);
-                add(new JSeparator(JSeparator.HORIZONTAL));
-                add(centralPanel);
-                add(new JSeparator(JSeparator.HORIZONTAL));
-                add(downPanel);
+                this.setLayout(layout);
+                layout.setAutoCreateContainerGaps(true);
+                layout.setAutoCreateGaps(true);
+                layout.setVerticalGroup(
+                    layout.createSequentialGroup()
+                    .addGroup(
+                        layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(tableLabel)
+                        .addComponent(tableText)
+                        .addComponent(kLabel)
+                        .addComponent(kText)
+                    )
+                    .addGroup(
+                        layout.createParallelGroup()
+                        .addComponent(
+                            scrollingArea,
+                            GroupLayout.PREFERRED_SIZE, 
+                            GroupLayout.DEFAULT_SIZE, 
+                            GroupLayout.PREFERRED_SIZE
+                        )
+                    )
+                    .addComponent(executeButton)
+                );
+                
+                layout.setHorizontalGroup(
+                    layout.createParallelGroup()
+                    .addGroup(
+                        layout.createSequentialGroup()
+                        .addComponent(tableLabel)
+                        .addComponent(tableText)
+                        .addComponent(kLabel)
+                        .addComponent(kText)
+                    )
+                    .addGroup(
+                        layout.createSequentialGroup()
+                        .addComponent(scrollingArea)
+                    )
+                    .addGroup(
+                        layout.createParallelGroup(GroupLayout.Alignment.CENTER)
+                        .addComponent(executeButton)
+                    )
+                );
             }
         }
     }
@@ -150,11 +189,11 @@ public class KMeans extends JApplet {
     public void init() {
         JFrame frame = new JFrame();
         frame.setTitle("Clustering");
-        frame.setSize(600, 600);
+        frame.setSize(600, 345);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+        frame.setResizable(false);
         TabbedPane tab = new TabbedPane();
         frame.add(tab);
-        tab.setVisible(true);
+        frame.setVisible(true);
     }
 }
