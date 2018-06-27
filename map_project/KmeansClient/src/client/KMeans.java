@@ -133,8 +133,8 @@ public class KMeans extends JApplet {
                 );
                 clusterOutput.setEditable(false);
                 clusterOutput.setLineWrap(true);
-                scrollingArea.setPreferredSize(new Dimension(780, 200));
-                scrollingArea.setMaximumSize(new Dimension(780, 200));
+                scrollingArea.setPreferredSize(new Dimension(880, 200));
+                scrollingArea.setMaximumSize(new Dimension(880, 200));
                 scrollingArea.setVisible(true);
                 scrollingArea.setAlignmentX(RIGHT_ALIGNMENT);
                 clusterOutput.setWrapStyleWord(true);
@@ -222,8 +222,8 @@ public class KMeans extends JApplet {
                 );
                 clusterOutput.setEditable(false);
                 clusterOutput.setLineWrap(true);
-                scrollingArea.setPreferredSize(new Dimension(780, 200));
-                scrollingArea.setMaximumSize(new Dimension(780, 200));
+                scrollingArea.setPreferredSize(new Dimension(880, 200));
+                scrollingArea.setMaximumSize(new Dimension(880, 200));
                 scrollingArea.setVisible(true);
                 scrollingArea.setAlignmentX(RIGHT_ALIGNMENT);
                 clusterOutput.setWrapStyleWord(true);
@@ -282,7 +282,7 @@ public class KMeans extends JApplet {
     public void init() {
         JFrame frame = new JFrame();
         frame.setTitle("Clustering");
-        frame.setSize(800, 345);
+        frame.setSize(900, 345);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         TabbedPane tab = new TabbedPane();
