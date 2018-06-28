@@ -5,6 +5,8 @@ package client;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import share.ReadRequest;
 import share.Request;
@@ -23,7 +25,7 @@ public class KMeans extends JApplet {
         private JPanelWrite panelWrite;
         private JPanelRead panelRead;
     
-        public TabbedPane() {
+        public TabbedPane() throws IOException{
             JTabbedPane tabbedPane = new JTabbedPane();
             ActionListener actionWrite = new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -51,9 +53,21 @@ public class KMeans extends JApplet {
             this.panelRead = new JPanelRead("Send", actionRead);
             tabbedPane.addTab("Write to File", panelWrite);
             tabbedPane.addTab("Read File", panelRead);
+            tabbedPane.setTabComponentAt(0, getLabel("WriteToFile","db1.png"));
+            tabbedPane.setTabComponentAt(1, getLabel("Read File", "ld1.png"));
             this.add(tabbedPane);
         }
     
+        public JLabel getLabel(String title, String icon) throws IOException {
+        	JLabel label = new JLabel(title);
+        	try {
+        		label.setIcon(new ImageIcon(ImageIO.read(getClass().getResource(icon))));
+        	}catch(IOException ex) {
+        		ex.printStackTrace();
+        	}
+        	return label;
+        }
+        
         private void learningFromDBAction() throws IOException, ClassNotFoundException {
             Request req = null;
             int numberClusters;
@@ -285,8 +299,13 @@ public class KMeans extends JApplet {
         frame.setSize(900, 345);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
-        TabbedPane tab = new TabbedPane();
-        frame.add(tab);
-        frame.setVisible(true);
+        try{
+        	TabbedPane tab = new TabbedPane();
+        	frame.add(tab);
+            frame.setVisible(true);
+        }catch(IOException ex) {
+        	ex.printStackTrace();
+        }
+        
     }
 }
