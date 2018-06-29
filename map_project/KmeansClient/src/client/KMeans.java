@@ -1,8 +1,5 @@
 package client;
 
-// <applet code=KMeans.class width=600 height=600>
-// </applet>
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -25,7 +22,7 @@ public class KMeans extends JApplet {
         private JPanelWrite panelWrite;
         private JPanelRead panelRead;
     
-        public TabbedPane() throws IOException{
+        public TabbedPane() {
             JTabbedPane tabbedPane = new JTabbedPane();
             ActionListener actionWrite = new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -53,8 +50,12 @@ public class KMeans extends JApplet {
             this.panelRead = new JPanelRead("Send", actionRead);
             tabbedPane.addTab("Write to File", panelWrite);
             tabbedPane.addTab("Read File", panelRead);
-            tabbedPane.setTabComponentAt(0, getLabel("WriteToFile","/icons/db1.png"));
-            tabbedPane.setTabComponentAt(1, getLabel("Read File", "/icons/ld1.png"));
+            try {
+                tabbedPane.setTabComponentAt(0, getLabel("WriteToFile", "/icons/db1.png"));
+                tabbedPane.setTabComponentAt(1, getLabel("Read File", "/icons/ld1.png"));
+            } catch(IOException ex) {
+            	ex.printStackTrace();
+            }
             this.add(tabbedPane);
         }
     
@@ -62,7 +63,7 @@ public class KMeans extends JApplet {
         	JLabel label = new JLabel(title);
         	try {
         		label.setIcon(new ImageIcon(ImageIO.read(getClass().getResource(icon))));
-        	}catch(IOException ex) {
+        	} catch(IOException ex) {
         		ex.printStackTrace();
         	}
         	return label;
@@ -125,172 +126,6 @@ public class KMeans extends JApplet {
                 }
             }
         }
-        
-        
-        class JPanelWrite extends JPanel {
-            private static final long serialVersionUID = 1L;
-            private JTextField tableText = new JTextField(20);
-            private JTextField fileText = new JTextField(20);
-            private JTextField kText = new JTextField(10);
-            private JTextArea clusterOutput = new JTextArea();
-            private JButton executeButton = new JButton();
-            private JLabel tableLabel = new JLabel("Table:");
-            private JLabel kLabel = new JLabel("Num of clusters: ");
-            private JLabel fileLabel = new JLabel("File: ");
-            
-            JPanelWrite(String buttonName, ActionListener a) { 
-                GroupLayout layout = new GroupLayout(this);
-                JScrollPane scrollingArea = new JScrollPane(
-                    clusterOutput, 
-                    JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
-                    JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED
-                );
-                clusterOutput.setEditable(false);
-                clusterOutput.setLineWrap(true);
-                scrollingArea.setPreferredSize(new Dimension(880, 200));
-                scrollingArea.setMaximumSize(new Dimension(880, 200));
-                scrollingArea.setVisible(true);
-                scrollingArea.setAlignmentX(RIGHT_ALIGNMENT);
-                clusterOutput.setWrapStyleWord(true);
-                executeButton.setText(buttonName);
-                executeButton.setSize(new Dimension(50, 100));
-                executeButton.addActionListener(a);
-                this.setLayout(layout);
-                layout.setAutoCreateContainerGaps(true);
-                layout.setAutoCreateGaps(true);
-                layout.setVerticalGroup(
-                    layout.createSequentialGroup()
-                    .addGroup(
-                        layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(tableLabel)
-                        .addComponent(tableText)
-                        .addComponent(kLabel)
-                        .addComponent(kText)
-                        .addComponent(fileLabel)
-                        .addComponent(fileText)
-                    )
-                    .addGroup(
-                        layout.createParallelGroup()
-                        .addComponent(
-                            scrollingArea,
-                            GroupLayout.PREFERRED_SIZE, 
-                            GroupLayout.DEFAULT_SIZE, 
-                            GroupLayout.PREFERRED_SIZE
-                        )
-                    )
-                    .addComponent(executeButton)
-                );
-                
-                layout.setHorizontalGroup(
-                    layout.createParallelGroup()
-                    .addGroup(
-                        layout.createSequentialGroup()
-                        .addComponent(tableLabel)
-                        .addComponent(tableText)
-                        .addComponent(kLabel)
-                        .addComponent(kText)
-                        .addComponent(fileLabel)
-                        .addComponent(fileText)
-                    )
-                    .addGroup(
-                        layout.createSequentialGroup()
-                        .addComponent(scrollingArea)
-                    )
-                    .addGroup(
-                        layout.createParallelGroup(GroupLayout.Alignment.CENTER)
-                        .addComponent(executeButton)
-                    )
-                );
-            }
-            
-            public int getNumberOfClusters() {
-                return Integer.parseInt(kText.getText());
-            }
-            
-            public String getTable() {
-                return tableText.getText();
-            }
-            
-            public String getFile() {
-                return fileText.getText();
-            }
-          
-            public void setOutputTextArea(String s) {
-                clusterOutput.setText(s);
-            }
-        }
-        
-        class JPanelRead extends JPanel {
-            private static final long serialVersionUID = 1L;
-            private JTextField fileText = new JTextField(20);
-            private JTextArea clusterOutput = new JTextArea();
-            private JButton executeButton = new JButton();
-            private JLabel fileLabel = new JLabel("File:");
-            
-            JPanelRead(String buttonName, ActionListener a) { 
-                GroupLayout layout = new GroupLayout(this);
-                JScrollPane scrollingArea = new JScrollPane(
-                    clusterOutput, 
-                    JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
-                    JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED
-                );
-                clusterOutput.setEditable(false);
-                clusterOutput.setLineWrap(true);
-                scrollingArea.setPreferredSize(new Dimension(880, 200));
-                scrollingArea.setMaximumSize(new Dimension(880, 200));
-                scrollingArea.setVisible(true);
-                scrollingArea.setAlignmentX(RIGHT_ALIGNMENT);
-                clusterOutput.setWrapStyleWord(true);
-                executeButton.setText(buttonName);
-                executeButton.setSize(new Dimension(50, 100));
-                executeButton.addActionListener(a);
-                this.setLayout(layout);
-                layout.setAutoCreateContainerGaps(true);
-                layout.setAutoCreateGaps(true);
-                layout.setVerticalGroup(
-                    layout.createSequentialGroup()
-                    .addGroup(
-                        layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(fileLabel)
-                        .addComponent(fileText)
-                    )
-                    .addGroup(
-                        layout.createParallelGroup()
-                        .addComponent(
-                            scrollingArea,
-                            GroupLayout.PREFERRED_SIZE, 
-                            GroupLayout.DEFAULT_SIZE, 
-                            GroupLayout.PREFERRED_SIZE
-                        )
-                    )
-                    .addComponent(executeButton)
-                );
-                
-                layout.setHorizontalGroup(
-                    layout.createParallelGroup()
-                    .addGroup(
-                        layout.createSequentialGroup()
-                        .addComponent(fileLabel)
-                        .addComponent(fileText)
-                    )
-                    .addGroup(
-                        layout.createSequentialGroup()
-                        .addComponent(scrollingArea)
-                    )
-                    .addGroup(
-                        layout.createParallelGroup(GroupLayout.Alignment.CENTER)
-                        .addComponent(executeButton)
-                    )
-                );
-            }
-            
-            public String getFile() {
-                return fileText.getText();
-            }
-            public void setOutputTextArea(String s) {
-                clusterOutput.setText(s);
-            }
-        }
     }
   
     public void init() {
@@ -299,13 +134,8 @@ public class KMeans extends JApplet {
         frame.setSize(900, 345);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
-        try{
-        	TabbedPane tab = new TabbedPane();
-        	frame.add(tab);
-            frame.setVisible(true);
-        }catch(IOException ex) {
-        	ex.printStackTrace();
-        }
-        
+        TabbedPane tab = new TabbedPane();
+        frame.add(tab);
+        frame.setVisible(true);
     }
 }
