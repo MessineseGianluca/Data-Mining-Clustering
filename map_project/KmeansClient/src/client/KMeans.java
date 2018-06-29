@@ -130,7 +130,7 @@ public class KMeans extends JApplet {
   
     public void init() {
         JFrame frame = new JFrame();
-        frame.setTitle("Clustering");
+        frame.setTitle("K-Means Client");
         frame.setSize(900, 345);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
