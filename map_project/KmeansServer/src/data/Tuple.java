@@ -5,7 +5,7 @@ public class Tuple implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Item tuple[];
   
-    Tuple(int size) {
+    public Tuple(int size) {
         tuple = new Item[size];
     }
     
@@ -17,7 +17,7 @@ public class Tuple implements Serializable {
         return tuple[i];
     }
     
-    void add(Item c, int i) {
+    public void add(Item c, int i) {
         tuple[i] = c;
     }
   

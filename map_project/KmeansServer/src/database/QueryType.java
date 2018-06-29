@@ -1,5 +1,5 @@
 package database;
 
-public enum QueryType {
+enum QueryType {
 	MIN, MAX
 }

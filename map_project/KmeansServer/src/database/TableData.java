@@ -16,14 +16,9 @@ import database.TableSchema.Column;
 
 
 public class TableData {
-	DbAccess db;
-	public TableData(DbAccess db) {
-		this.db = db;
-	}
-
-	public List<Example> getDistinctTransazioni(String table) throws SQLException, EmptySetException {
+	public List<Example> getDistinctTransactions(String table) throws SQLException, EmptySetException {
 		List<Example> dataList = new ArrayList<Example>();
-		TableSchema schema = new TableSchema(this.db, table);
+		TableSchema schema = new TableSchema(table);
 		String query = "SELECT DISTINCT * FROM" + table;
 		Statement stmt = DbAccess.getConnection().createStatement();
 		ResultSet rs = stmt.executeQuery(query);
@@ -43,10 +38,9 @@ public class TableData {
 		return dataList;
 	}
 
-	
-	public  Set<Object>getDistinctColumnValues(String table, Column column) throws SQLException {
+	public Set<Object> getDistinctColumnValues(String table, Column column) throws SQLException {
 		Set<Object> valuesOfTheColumn = new TreeSet<Object>();
-		TableSchema schema = new TableSchema(this.db, table);
+		TableSchema schema = new TableSchema(table);
 		String query = "SELECT DISTINCT" + column.getColumnName() + "FROM" + "ORDER BY ASC";
 		Statement stmt = DbAccess.getConnection().createStatement();
 		ResultSet rs = stmt.executeQuery(query);
@@ -58,7 +52,6 @@ public class TableData {
             }
             i++; 
         }
-        
         if(schema.getColumn(i).isNumber()) {
             while(rs.next()) {
                 valuesOfTheColumn.add(rs.getFloat(i));
@@ -72,8 +65,8 @@ public class TableData {
         return valuesOfTheColumn;    
 	}
 
-	public  Object getAggregateColumnValue(String table, Column column, QueryType aggregate) throws SQLException,NoValueException {
-		TableSchema schema = new TableSchema(this.db, table);
+	public Object getAggregateColumnValue(String table, Column column, QueryType aggregate) throws SQLException, NoValueException {
+		TableSchema schema = new TableSchema(table);
         String query = "SELECT" + aggregate + "(" + column.getColumnName() + ")" + "FROM" + table + "ORDER BY ASC";
         Statement stmt = DbAccess.getConnection().createStatement();
         ResultSet rs = stmt.executeQuery(query);

@@ -9,7 +9,7 @@ import java.util.Set;
 public class Cluster implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Tuple centroid;
-	Set<Integer> clusteredData;
+	private Set<Integer> clusteredData;
 	
 	Cluster(Tuple centroid) {
 		this.centroid = centroid;

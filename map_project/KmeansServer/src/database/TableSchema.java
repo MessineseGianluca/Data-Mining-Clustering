@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class TableSchema {
-	DbAccess db;
 	List<Column> tableSchema = new ArrayList<Column>(); // list of fields of the table
 	
 	public class Column {
@@ -35,8 +34,7 @@ public class TableSchema {
 		}
 	}
 	
-	public TableSchema(DbAccess db, String tableName) throws SQLException {
-		this.db = db;
+	public TableSchema(String tableName) throws SQLException {
 		HashMap<String, String> SQL_JAVATypes = new HashMap<String, String>();
 		// http://java.sun.com/j2se/1.3/docs/guide/jdbc/getstart/mapping.html
 		SQL_JAVATypes.put("CHAR", "string");

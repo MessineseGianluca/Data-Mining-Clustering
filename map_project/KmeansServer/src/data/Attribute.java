@@ -7,7 +7,7 @@ public abstract class Attribute implements Serializable {
 	protected int index; // numeric id of the attribute
 	private static int count = 0;
 	
-	Attribute(String name) {
+	public Attribute(String name) {
 		this.name = name;
 		index = count;
 		count++;

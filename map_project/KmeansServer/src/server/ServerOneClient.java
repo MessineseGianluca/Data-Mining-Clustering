@@ -32,13 +32,13 @@ public class ServerOneClient extends Thread {
                     try {
                         KmeansMiner kmeans = new KmeansMiner(req.getFileName() + ".dmp");
                         out.writeObject(kmeans.toString());
-                    } catch (FileNotFoundException e) {
+                    } catch(FileNotFoundException e) {
                         System.out.println(e.getMessage());
                         out.writeObject(e.getMessage());
-                    } catch (IOException e) {
+                    } catch(IOException e) {
                         e.printStackTrace();
                         out.writeObject("Error from the server, please try again.");
-                    } catch (ClassNotFoundException e) {
+                    } catch(ClassNotFoundException e) {
                         e.printStackTrace();
                         out.writeObject("Error from the server, please try again.");
                     }
@@ -56,10 +56,10 @@ public class ServerOneClient extends Thread {
                             System.out.println("Saving in " + req.getFileName() + ".dmp...");
                             try {
                                 kmeans.save(req.getFileName() + ".dmp");
-                            } catch (FileNotFoundException e) {
+                            } catch(FileNotFoundException e) {
                                 System.out.println(e.getMessage());
                                 out.writeObject(e.getMessage());
-                            } catch (IOException e) {
+                            } catch(IOException e) {
                                 e.printStackTrace();
                                 out.writeObject("Error from the server, please try again.");
                             }
@@ -96,14 +96,14 @@ public class ServerOneClient extends Thread {
             e.printStackTrace();
             try {
 				out.writeObject("Error from the server, please try again.");
-			} catch (IOException e1) {
+			} catch(IOException e1) {
 				e.printStackTrace();
 			}
-        } catch (ClassNotFoundException e) {
+        } catch(ClassNotFoundException e) {
                 e.printStackTrace();
                 try {
     				out.writeObject("Error from the server, please try again.");
-    			} catch (IOException e1) {
+    			} catch(IOException e1) {
     				e.printStackTrace();
     			}
         } finally {

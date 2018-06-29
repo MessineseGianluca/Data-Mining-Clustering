@@ -45,9 +45,8 @@ public class Data {
         attributeSet.add(new DiscreteAttribute("Play Tennis", playTennisValues));
 
         /* Add examples */
-        DbAccess db = new DbAccess();
         Statement stmt = DbAccess.getConnection().createStatement();
-        TableSchema schema = new TableSchema(db, table);
+        TableSchema schema = new TableSchema(table);
         String query = "SELECT DISTINCT * FROM " + table;
         ResultSet rs = stmt.executeQuery(query);
         data = new ArrayList<Example>();
@@ -77,7 +76,7 @@ public class Data {
         return data.get(exampleIndex).get(attributeIndex);
     }
 
-    Attribute getAttribute(int index) {
+    public Attribute getAttribute(int index) {
         return attributeSet.get(index);
     }
 
