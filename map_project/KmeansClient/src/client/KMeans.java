@@ -53,8 +53,8 @@ public class KMeans extends JApplet {
             this.panelRead = new JPanelRead("Send", actionRead);
             tabbedPane.addTab("Write to File", panelWrite);
             tabbedPane.addTab("Read File", panelRead);
-            tabbedPane.setTabComponentAt(0, getLabel("WriteToFile","db1.png"));
-            tabbedPane.setTabComponentAt(1, getLabel("Read File", "ld1.png"));
+            tabbedPane.setTabComponentAt(0, getLabel("WriteToFile","/icons/db1.png"));
+            tabbedPane.setTabComponentAt(1, getLabel("Read File", "/icons/ld1.png"));
             this.add(tabbedPane);
         }
     
