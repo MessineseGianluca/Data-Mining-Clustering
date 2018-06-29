@@ -85,7 +85,7 @@ public class KMeans extends JApplet {
                 // Send request 
                 out.writeObject(req);
                 // Write response
-                panelWrite.setOutputTextArea((String)in.readObject());
+                panelWrite.setOutputPanel((String)in.readObject());
             } catch(NumberFormatException e) { 
                 JOptionPane.showMessageDialog(this, e.toString());
             } catch(ClassNotFoundException e) {
@@ -100,7 +100,7 @@ public class KMeans extends JApplet {
         }
         
         private void learningFromFileAction() throws IOException, ClassNotFoundException {
-            panelRead.clusterOutput.setText(null);
+            panelRead.setOutputPanel(null);
             Request req = null;
             InetAddress addr = InetAddress.getByName("127.0.0.1");
             int port = 8000;
@@ -113,7 +113,7 @@ public class KMeans extends JApplet {
                 // Send request 
                 out.writeObject(req);
                 // Write response
-                panelRead.setOutputTextArea((String)in.readObject());
+                panelRead.setOutputPanel((String)in.readObject());
             } catch(NumberFormatException e) { 
                 JOptionPane.showMessageDialog(this, e.toString());
             } catch(ClassNotFoundException e) {

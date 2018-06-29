@@ -14,24 +14,24 @@ import javax.swing.JTextField;
 class JPanelRead extends JPanel {
     private static final long serialVersionUID = 1L;
     private JTextField fileText = new JTextField(20);
-    JTextArea clusterOutput = new JTextArea();
+    private JTextArea outputPanel = new JTextArea();
     private JButton executeButton = new JButton();
     private JLabel fileLabel = new JLabel("File:");
     
     JPanelRead(String buttonName, ActionListener a) { 
         GroupLayout layout = new GroupLayout(this);
         JScrollPane scrollingArea = new JScrollPane(
-            clusterOutput, 
+            outputPanel, 
             JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
             JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED
         );
-        clusterOutput.setEditable(false);
-        clusterOutput.setLineWrap(true);
+        outputPanel.setEditable(false);
+        outputPanel.setLineWrap(true);
         scrollingArea.setPreferredSize(new Dimension(880, 200));
         scrollingArea.setMaximumSize(new Dimension(880, 200));
         scrollingArea.setVisible(true);
         scrollingArea.setAlignmentX(RIGHT_ALIGNMENT);
-        clusterOutput.setWrapStyleWord(true);
+        outputPanel.setWrapStyleWord(true);
         executeButton.setText(buttonName);
         executeButton.setSize(new Dimension(50, 100));
         executeButton.addActionListener(a);
@@ -75,10 +75,10 @@ class JPanelRead extends JPanel {
         );
     }
     
-    public String getFile() {
+    String getFile() {
         return fileText.getText();
     }
-    public void setOutputTextArea(String s) {
-        clusterOutput.setText(s);
+    void setOutputPanel(String s) {
+        outputPanel.setText(s);
     }
 }
