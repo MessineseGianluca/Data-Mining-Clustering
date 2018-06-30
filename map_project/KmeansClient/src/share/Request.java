@@ -9,8 +9,8 @@ import java.io.Serializable;
  * supplied by a specific server.
  * A Request object encapsulates all the information needed
  * for the supply of a particular service.
- * The Request class has methods to get the value of the service
- * chosen and the filename set for the specific request.
+ * The Request class has a method to get the filename set 
+ * for the specific request.
  */
 public class Request implements Serializable {
 	
