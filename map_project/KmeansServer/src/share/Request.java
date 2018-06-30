@@ -19,11 +19,6 @@ public class Request implements Serializable {
 	 * class.
 	 */
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * The service chosen for the request.
-	 */
-	private int menuChoice;
 	
 	/**
 	 * The name of file chosen for read or write operation.
@@ -37,17 +32,12 @@ public class Request implements Serializable {
      * Constructs a new Request object by setting the service 
      * to demand and the name of file used in the specific operation.
      * 
-     * @param menuChoice The service chosen for the request.
      * @param fileName The name of file to use for the operation.
      */
-    public Request(int menuChoice, String fileName) {
-        this.menuChoice = menuChoice;
+    public Request(String fileName) {
         this.fileName = fileName;
     }  
-    
-    public int getMenuChoice() {
-        return menuChoice;
-    }        
+       
     public String getFileName() {
         return fileName;
     }

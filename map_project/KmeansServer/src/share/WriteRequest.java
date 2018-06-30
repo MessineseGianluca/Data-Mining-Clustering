@@ -38,13 +38,12 @@ public class WriteRequest extends Request {
      * mining operation, the number of clusters to generate and the
      * name of database table for acquiring of data.
      * 
-     * @param menuChoice The service chosen for the request.
      * @param fileName The name of file to use for saving operation.
      * @param numberOfClusters The number of clusters to generate.
      * @param table The database table name.
      */
-    public WriteRequest(int menuChoice, String fileName, int numberOfClusters, String table) {
-        super(menuChoice, fileName);
+    public WriteRequest(String fileName, int numberOfClusters, String table) {
+        super(fileName);
         this.numberOfClusters = numberOfClusters; 
         DBtableName = table;
     }

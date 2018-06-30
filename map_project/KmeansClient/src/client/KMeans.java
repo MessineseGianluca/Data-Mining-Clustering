@@ -81,7 +81,7 @@ public class KMeans extends JApplet {
                 numberClusters = panelWrite.getNumberOfClusters();
                 String table = panelWrite.getTable();
                 String fileName = panelWrite.getFile();
-                req = new WriteRequest(2, fileName, numberClusters, table);
+                req = new WriteRequest(fileName, numberClusters, table);
                 // Send request 
                 out.writeObject(req);
                 // Write response
@@ -109,7 +109,7 @@ public class KMeans extends JApplet {
                 out = new ObjectOutputStream(socket.getOutputStream());
                 in = new ObjectInputStream(socket.getInputStream());
                 String fileName = panelRead.getFile();
-                req = new ReadRequest(1, fileName);
+                req = new ReadRequest(fileName);
                 // Send request 
                 out.writeObject(req);
                 // Write response

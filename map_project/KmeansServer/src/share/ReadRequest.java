@@ -19,11 +19,10 @@ public class ReadRequest extends Request {
 	/**
 	 * Constructs a new ReadRequest object by setting the service 
      * to demand and the name of file used for reading operation.
-	 * 
-	 * @param menuChoice The service chosen for the request.
+     * 
 	 * @param fileName The file name used for the reading operation.
 	 */
-	public ReadRequest(int menuChoice, String fileName) {
-        super(menuChoice, fileName);
+	public ReadRequest(String fileName) {
+        super(fileName);
     }   
 }

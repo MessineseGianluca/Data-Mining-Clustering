@@ -3,6 +3,7 @@ package server;
 import mining.KmeansMiner;
 import share.Request;
 import share.WriteRequest;
+import share.ReadRequest;
 import data.Data;
 import data.OutOfRangeSampleSize;
 import java.sql.SQLException;
@@ -25,71 +26,68 @@ public class ServerOneClient extends Thread {
 
     public void run() {
         try {
-            Request req = (Request)in.readObject();
-            switch (req.getMenuChoice()) {
-                case 1:
-                	System.out.println("Executing ReadRequest...");
+            Request req = (Request)in.readObject();   
+            if(req instanceof WriteRequest) {
+            	System.out.println("Executing WriteRequest...");
+                try {
+                    DbAccess.initConnection();
+                    String table = ((WriteRequest) req).getDBtableName();
+                    Data data = new Data(table);
+                    int k = ((WriteRequest) req).getNumberOfClusters();
+                    KmeansMiner kmeans = new KmeansMiner(k);
                     try {
-                        KmeansMiner kmeans = new KmeansMiner(req.getFileName() + ".dmp");
-                        out.writeObject(kmeans.toString());
-                    } catch(FileNotFoundException e) {
-                        System.out.println(e.getMessage());
-                        out.writeObject(e.getMessage());
-                    } catch(IOException e) {
-                        e.printStackTrace();
-                        out.writeObject("Error from the server, please try again.");
-                    } catch(ClassNotFoundException e) {
-                        e.printStackTrace();
-                        out.writeObject("Error from the server, please try again.");
-                    }
-                    break;
-                case 2:
-                	System.out.println("Executing WriteRequest...");
-                    try {
-                        DbAccess.initConnection();
-                        String table = ((WriteRequest) req).getDBtableName();
-                        Data data = new Data(table);
-                        int k = ((WriteRequest) req).getNumberOfClusters();
-                        KmeansMiner kmeans = new KmeansMiner(k);
+                        int numIter = kmeans.kmeans(data);
+                        System.out.println("Saving in " + req.getFileName() + ".dmp...");
                         try {
-                            int numIter = kmeans.kmeans(data);
-                            System.out.println("Saving in " + req.getFileName() + ".dmp...");
-                            try {
-                                kmeans.save(req.getFileName() + ".dmp");
-                            } catch(FileNotFoundException e) {
-                                System.out.println(e.getMessage());
-                                out.writeObject(e.getMessage());
-                            } catch(IOException e) {
-                                e.printStackTrace();
-                                out.writeObject("Error from the server, please try again.");
-                            }
-                            out.writeObject(
-                            		data +
-                            		"\nNumber of iterations: " +
-                            		numIter + "\n" +
-                            		kmeans.getC().toString(data)
-                            );
-                        } catch(OutOfRangeSampleSize e) {
-                        	String str = "Invalid number of clusters.";
-                            System.out.println(str);
-                            out.writeObject(str);
-                        } finally {
-                        	 DbAccess.closeConnection();
+                            kmeans.save(req.getFileName() + ".dmp");
+                        } catch(FileNotFoundException e) {
+                            System.out.println(e.getMessage());
+                            out.writeObject(e.getMessage());
+                        } catch(IOException e) {
+                            e.printStackTrace();
+                            out.writeObject("Error from the server, please try again.");
                         }
-                    } catch(SQLException e) {
-                        System.out.println(e.getMessage());
-                        out.writeObject(e.getMessage());
-                    } catch(IllegalAccessException e) {
-                        System.out.println(e.getMessage());
-                        out.writeObject("Error from the server, please try again.");
-                    } catch(InstantiationException e) {
-                        System.out.println(e.getMessage());
-                        out.writeObject("Error from the server, please try again.");
-                    } catch(DatabaseConnectionException e) {
-                        System.out.println(e.getMessage());
-                        out.writeObject("Error from the server, please try again.");
+                        out.writeObject(
+                        		data +
+                        		"\nNumber of iterations: " +
+                        		numIter + "\n" +
+                        		kmeans.getC().toString(data)
+                        );
+                    } catch(OutOfRangeSampleSize e) {
+                    	String str = "Invalid number of clusters.";
+                        System.out.println(str);
+                        out.writeObject(str);
+                    } finally {
+                    	 DbAccess.closeConnection();
                     }
-                    break;
+                } catch(SQLException e) {
+                    System.out.println(e.getMessage());
+                    out.writeObject(e.getMessage());
+                } catch(IllegalAccessException e) {
+                    System.out.println(e.getMessage());
+                    out.writeObject("Error from the server, please try again.");
+                } catch(InstantiationException e) {
+                    System.out.println(e.getMessage());
+                    out.writeObject("Error from the server, please try again.");
+                } catch(DatabaseConnectionException e) {
+                    System.out.println(e.getMessage());
+                    out.writeObject("Error from the server, please try again.");
+                }
+            } else if(req instanceof ReadRequest) {
+            	System.out.println("Executing ReadRequest...");
+                try {
+                    KmeansMiner kmeans = new KmeansMiner(req.getFileName() + ".dmp");
+                    out.writeObject(kmeans.toString());
+                } catch(FileNotFoundException e) {
+                    System.out.println(e.getMessage());
+                    out.writeObject(e.getMessage());
+                } catch(IOException e) {
+                    e.printStackTrace();
+                    out.writeObject("Error from the server, please try again.");
+                } catch(ClassNotFoundException e) {
+                    e.printStackTrace();
+                    out.writeObject("Error from the server, please try again.");
+                }
             }
             System.out.println("Closing request...");
         } catch(IOException e) {

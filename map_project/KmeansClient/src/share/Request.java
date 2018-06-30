@@ -21,11 +21,6 @@ public class Request implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * The service chosen for the request.
-	 */
-	private int menuChoice;
-	
-	/**
 	 * The name of file chosen for read or write operation.
 	 * In case of read operation it represents the source
 	 * file of information, otherwise it represents the
@@ -40,14 +35,10 @@ public class Request implements Serializable {
      * @param menuChoice The service chosen for the request.
      * @param fileName The name of file to use for the operation.
      */
-    public Request(int menuChoice, String fileName) {
-        this.menuChoice = menuChoice;
+    public Request(String fileName) {
         this.fileName = fileName;
     }
     
-    public int getMenuChoice() {
-        return menuChoice;
-    }        
     public String getFileName() {
         return fileName;
     }
