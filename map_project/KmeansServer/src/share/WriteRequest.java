@@ -33,10 +33,10 @@ public class WriteRequest extends Request {
     private int numberOfClusters;
     
     /**
-     * Constructs a new WriteRequest object by setting the service 
-     * to demand, the name of file used to write the result of data
-     * mining operation, the number of clusters to generate and the
-     * name of database table for acquiring of data.
+     * Constructs a new WriteRequest object by setting the name of 
+     * file used to write the result of data mining operation, the 
+     * number of clusters to generate and the name of database table
+     * for acquiring of data.
      * 
      * @param fileName The name of file to use for saving operation.
      * @param numberOfClusters The number of clusters to generate.

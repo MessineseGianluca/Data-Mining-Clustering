@@ -17,9 +17,9 @@ public class ReadRequest extends Request {
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * Constructs a new ReadRequest object by setting the service 
-     * to demand and the name of file used for reading operation.
-     * 
+	 * Constructs a new ReadRequest object by setting the name of 
+	 * file used for reading operation.
+	 * 
 	 * @param fileName The file name used for the reading operation.
 	 */
 	public ReadRequest(String fileName) {

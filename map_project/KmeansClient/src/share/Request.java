@@ -29,16 +29,15 @@ public class Request implements Serializable {
     private String fileName;
     
     /**
-     * Constructs a new Request object by setting the service 
-     * to demand and the name of file used in the specific operation.
+     * Constructs a new Request object by setting the name of file
+     * used in the specific operation.
      * 
-     * @param menuChoice The service chosen for the request.
      * @param fileName The name of file to use for the operation.
      */
     public Request(String fileName) {
         this.fileName = fileName;
-    }
-    
+    }  
+       
     public String getFileName() {
         return fileName;
     }
