@@ -12,18 +12,79 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.io.*;
 
+/**
+ * The KMeans class is the basis for the client interface where all the operations
+ * can be requested by the user. This class extends the JApplet class in order to
+ * use all the methods needed for the creation of the interface. In addition this
+ * class encapsulates also methods to establish connection with the server in order
+ * to accomplish all the requests.
+ */
 public class KMeans extends JApplet {
+	/**
+	 * The serial version ID needed to serialize instances of this
+	 * class.
+	 */
     private static final long serialVersionUID = 1L;
-    private ObjectOutputStream out;
-    private ObjectInputStream in;
-  
-    class TabbedPane extends JPanel {
-        private static final long serialVersionUID = 1L;
-        private JPanelWrite panelWrite;
-        private JPanelRead panelRead;
     
+    /**
+     * The Object Output Stream out is used to print all the output received 
+     * from the server after a request.
+     */
+    private ObjectOutputStream out;
+    
+    /**
+     * The Object Input Stream in is used to send a request to the server
+     */
+    private ObjectInputStream in;
+    
+    /**
+     * The TabbedPane class is one of the main component of the interface.
+     * Because it extends the class JPanel of the JSwing library, it uses
+     * methods from JPanel to add inner components such as JButtons and JPanels. 
+     * It instantiates all the Action Listener that makes useful the interface.
+     * These Action Listeners call methods that connect the client to the server 
+     * to solve requests.	
+     */
+    class TabbedPane extends JPanel {
+    	
+    	/**
+    	 * The serial version ID needed to serialize instances of this
+    	 * class.
+    	 */
+        private static final long serialVersionUID = 1L;
+        
+        /**
+         * PanelWrite is the JPanel where the user can request a computation of
+         * k clusters of a defined table which is saved on the DataBase. Furthermore
+         * the user have to choose a valid name to save his computation in a file. 
+         */
+        private JPanelWrite panelWrite;
+        
+        /**
+         * PanelRead is the JPanel where the user can request and visualize 
+         * a past computation which is saved in a File. The name of this File 
+         * must be given by the user. 
+         */
+        private JPanelRead panelRead;
+        
+        
+        /**
+         * The constructor of TabbedPane initializes the tabbedPane itself, two
+         * ActionListeners (One for each possible request), two JPanels (One for
+         * each possible request) which are added to the tabbedPane and finally
+         * he calls the setTabComponent method (Of JTabbedPane) to set icons
+         * to each tab.
+         */
         public TabbedPane() {
+        	
+        	/**
+        	 * Construction of a new JTabbedPane object from JSwing
+        	 */
             JTabbedPane tabbedPane = new JTabbedPane();
+            
+            /**
+             * actionWrite Action Listener is linked to 
+             */
             ActionListener actionWrite = new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     try {
