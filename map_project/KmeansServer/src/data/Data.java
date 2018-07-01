@@ -166,7 +166,7 @@ public class Data {
         return equal;
     }
 
-    Object computePrototype(Set<Integer> idList, Attribute attribute) { //By using RTTI, he can decide if the attribute is Discrete or Continuous
+    Object computePrototype(Set<Integer> idList, Attribute attribute) { //By using RTTI, it can decide if the attribute is Discrete or Continuous
         if(attribute instanceof ContinuousAttribute) {
         	return computePrototype(idList, (ContinuousAttribute) attribute);
         } else {
