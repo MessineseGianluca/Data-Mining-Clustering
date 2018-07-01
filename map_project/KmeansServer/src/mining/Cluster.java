@@ -7,12 +7,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * A Cluster class instance represents a set of 
+ * A Cluster instance represents a set of 
  * transactions whose values are very close to 
  * each other.
  * Each cluster is represented by a centroid.
  * Each cluster has a different centroid
  * from the others.
+ * A Cluster is serializable.
  */
 public class Cluster implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -50,7 +51,7 @@ public class Cluster implements Serializable {
 	 * transactions.
 	 * 
 	 * @param data The whole set of transactions on which the system
-	 * is working.
+	 * works.
 	 * */
 	void computeCentroid(Data data) {
 		for(int i = 0; i < centroid.getLength(); i++) {
@@ -98,7 +99,7 @@ public class Cluster implements Serializable {
 	
 	/**
 	 * @param data The whole set of transactions on which the system
-	 * is working.
+	 * works.
 	 * @return A string containing the centroid's values,
 	 * along with the transactions' values in the Cluster
 	 */
