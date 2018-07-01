@@ -78,6 +78,8 @@ public class TableSchema {
 		
 		/**
 		 * Returns a string representing this Column's values.
+		 * 
+		 * @return a string for this column.
 		 */
 		public String toString() {
 			String str = name + ":" + type;
@@ -137,6 +139,3 @@ public class TableSchema {
 		return tableSchema.get(index);
 	}
 }
-		     
-
-
