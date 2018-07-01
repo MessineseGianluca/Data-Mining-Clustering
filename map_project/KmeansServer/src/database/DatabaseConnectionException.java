@@ -1,7 +1,7 @@
 package database;
 
 /**
- * Thrown when a failure occurred in establishing a connection
+ * Thrown when an error occurred in establishing a connection
  * to the database.
  *
  * @see Exception

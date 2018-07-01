@@ -71,12 +71,12 @@ public class DbAccess {
 	 * created by the driver manager. This object will be used 
 	 * to execute all the operations towards the database.
 	 * 
-	 * @throws DatabaseConnectionException thrown when a fail in getting connection occurs
+	 * @throws DatabaseConnectionException thrown when an error in getting connection occurs
 	 * @throws ClassNotFoundException thrown when the driver class cannot be found
 	 * @throws IllegalAccessException thrown when an instance of a class cannot be created
 	 * 		   because it is not accessible
 	 * @throws InstantiationException thrown when a class cannot be instantiated
-	 * @throws SQLException thrown when a fail in accessing the database occurs or when 
+	 * @throws SQLException thrown when an error in accessing the database occurs or when 
 	 * 		   given url is null or incomplete.
 	 */
 	public static void initConnection() 
