@@ -240,10 +240,11 @@ public class KMeans extends JApplet {
          * This method establishes a connection with the server, by creating a valid socket,
          * in order to send a request to the server itself. If the request is valid then the
          * method handles the response by printing the output on the JTextarea designed for
-         * the output.
+         * the output. In this method the request is based on a computation using data selected from
+         * the database situated on the server.
          * 
-         * @throws IOException 
-         * @throws ClassNotFoundException
+         * @throws IOException when an error occurs during the use of InputOutputStream 
+         * @throws ClassNotFoundException if the driver manager of the database connector is not found and creates a JOptionPane to print the error message 
          */
         private void learningFromDBAction() throws IOException, ClassNotFoundException {
             
@@ -294,7 +295,7 @@ public class KMeans extends JApplet {
                 String table = panelWrite.getTable();
                 
                 /**
-                 * Getting the name of the file where the result of the computation is saved
+                 * Getting the name of the file where the result of the computation is going to be saved
                  */
                 String fileName = panelWrite.getFile();
                 
@@ -309,7 +310,7 @@ public class KMeans extends JApplet {
                 out.writeObject(req);
                 
                 /**
-                 * Printing on the textArea of the interface the response of the server.
+                 * Printing in the textArea of the interface the response of the server.
                  */
                 panelWrite.setOutputPanel((String)in.readObject());
                 
@@ -337,20 +338,74 @@ public class KMeans extends JApplet {
             }
         }
         
+        
+        /**
+         * This method establishes a connection with the server, by creating a valid socket,
+         * in order to send a request to the server itself. If the request is valid then the
+         * method handles the response by printing the output on the JTextarea designed for
+         * the output. In this method the request consists in loading pre-computed clusters from
+         * a specific file which is given by the user in input.
+         * 
+         * @throws IOException when an error occurs during the use of InputOutputStream 
+         * @throws ClassNotFoundException if the driver manager of the database connector is not found and creates a JOptionPane to print the error message 
+         */
         private void learningFromFileAction() throws IOException, ClassNotFoundException {
-            panelRead.setOutputPanel(null);
+            /**
+             * Clears the TextArea for the output
+             */
+        	panelRead.setOutputPanel(null);
+        	
+        	/**
+        	 * The request object is initialized.
+        	 */
             Request req = null;
+            
+            /**
+             * With getByName method of InetAddress, the method gets the DNS of an IP.
+             */
             InetAddress addr = InetAddress.getByName("127.0.0.1");
+            
+            /**
+             * Port where the client makes the request to the server.
+             */
             int port = 8000;
+            
+            /**
+             * Creation of a new socket by setting the address and the port of the server.
+             */
             Socket socket = new Socket(addr, port);
+            
             try {
+            	
+            	/**
+            	 * Creation of an ObjectOutputStream in order to send the request to the server.
+            	 */
                 out = new ObjectOutputStream(socket.getOutputStream());
+                
+                /**
+                 * Creation of an ObjectInputStream in order to print the output once the client receives a response.
+                 */
                 in = new ObjectInputStream(socket.getInputStream());
+                
+
+                /**
+                 * Getting the name of the file where results of a past computation are saved
+                 */
                 String fileName = panelRead.getFile();
+                
+                /**
+                 * Building a new request with the chosen file name
+                 */
                 req = new ReadRequest(fileName);
-                // Send request 
+                
+                /**
+                 * Sending the request to the server 
+                 */
                 out.writeObject(req);
-                // Write response
+                
+                /**
+                 * Printing in the textArea of the interface the response of the server.
+                 */
                 panelRead.setOutputPanel((String)in.readObject());
             } catch(NumberFormatException e) { 
                 JOptionPane.showMessageDialog(this, e.toString());
@@ -365,15 +420,54 @@ public class KMeans extends JApplet {
             }
         }
     }
-  
+    
+    /**
+     * This method overrides the init() method given by the java.swing package. It's crucial because
+     * the main container of all JComponents is initialized here. In this case a JFrame contains
+     * all the components of the interface.
+     */
     public void init() {
+    	
+    	/**
+    	 * Creating a new JFrame to contain all the components of the interface
+    	 * 
+    	 * @see JFrame
+    	 */
         JFrame frame = new JFrame();
+        
+        /**
+         * The title of the frame is setted here
+         */
         frame.setTitle("K-Means Client");
+        
+        /**
+         * The dimension of the frame is setted here
+         */
         frame.setSize(900, 345);
+        
+        /**
+         * The default operation after the closure of the frame is setted here 
+         */
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        /**
+         * In this way the user cannot resize the window frame in order to keep the interface compact
+         */
         frame.setResizable(false);
+        
+        /**
+         * A new tabbedPane is created
+         */
         TabbedPane tab = new TabbedPane();
+        
+        /**
+         * The tabbedPane tab is added to the main frame
+         */
         frame.add(tab);
+        
+        /**
+         * The frame is set to be visible at the launch of the client
+         */
         frame.setVisible(true);
     }
 }
