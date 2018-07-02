@@ -2,21 +2,53 @@ package data;
 
 import java.util.Set;
 
+/**
+ * ContinuousAttribute extends Attribute, in order to 
+ * obtain objects representing continue numeric values 
+ * such as	double, long, float, etc..
+ * 
+ * @see Attribute
+ */
 public class ContinuousAttribute extends Attribute {
 	private static final long serialVersionUID = 1L;
-	private double max; // superior end of the range
-    private double min; // inferior end of the range
+	
+	/**
+	 * The max value of the range of values
+	 */
+	private double max;
+	
+	/**
+	 * The min value of the range of values
+	 */
+    private double min;
     
+    /**
+     * ContinuousAttribute's constructor
+     * 
+     * @param name The symbolic name of the attribute
+     * @param min
+     * @param max
+     */
     public ContinuousAttribute(String name, double min, double max) {
     	super(name); // invokes Attribute's constructor
     	this.min = min;
     	this.max = max;
     }
     
+    /**
+     * @param v The value to scale
+     * @return The scaled value of a given value v
+     */
     double getScaledValue(double v) {
     	return (v - min) / (max - min);
     }
     
+    /**
+     * 
+     * @param data The whole set of tuples in the system
+     * @param idList The set of tuples to analyze
+     * @return The average value of the given attribute for a set of tuples
+     */
     double getAVG(Data data, Set<Integer> idList) {
         Double sum = 0.0;
         int count = 0;

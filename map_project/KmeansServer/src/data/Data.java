@@ -10,22 +10,39 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.SQLException;
 
-
 public class Data {
-    private List<Example> data; // list of transactions
-    private int numberOfExamples; // number of transactions
+	/**
+	 * The list of transactions in the system
+	 */
+    private List<Example> data;
+    
+    /**
+     * The number of transactions in the system
+     */
+    private int numberOfExamples;
+    
+    /**
+     * The set of attributes for the transactions
+     */
     private List<Attribute> attributeSet;
+    
+    /**
+     * Data's constructor.
+     * Reads a set of transactions from the DB and
+     * initializes attributeSet.
+     * @param table The DB's table name
+     * @throws SQLException
+     */
     public Data(String table) throws SQLException {
         attributeSet = new LinkedList<Attribute>();
         Attribute.resetAttributesCount();
 
-        /* Populate attributeSet */
+        /******************* Populate attributeSet ***********************/
         TreeSet<String> outLookValues = new TreeSet<String>();
         outLookValues.add("overcast");
         outLookValues.add("rain");
         outLookValues.add("sunny");
         attributeSet.add(new DiscreteAttribute("Outlook", outLookValues));
-
 
         attributeSet.add(new ContinuousAttribute("Temperature", 3.2, 38.7));
 
@@ -44,7 +61,7 @@ public class Data {
         playTennisValues.add("no");
         attributeSet.add(new DiscreteAttribute("Play Tennis", playTennisValues));
 
-        /* Add examples */
+        /***************** Read transactions from the DB's table **************/
         Statement stmt = DbAccess.getConnection().createStatement();
         TableSchema schema = new TableSchema(table);
         String query = "SELECT DISTINCT * FROM " + table;
@@ -71,15 +88,23 @@ public class Data {
     public int getNumberOfAttributes() {
         return attributeSet.size();
     }
-
+    
+    /** 
+     * @param exampleIndex The index of the transaction
+     * @param attributeIndex The index of the attribute of the transaction
+     * @return The attribute's value of a transaction.
+     */
     public Object getAttributeValue(int exampleIndex, int attributeIndex) {
         return data.get(exampleIndex).get(attributeIndex);
     }
-
+    
     public Attribute getAttribute(int index) {
         return attributeSet.get(index);
     }
-
+    
+    /**
+     * @return The string representing the transactions' info
+     */
     public String toString() {
         String str = "";
         // print attributes
@@ -97,7 +122,12 @@ public class Data {
         }
         return str;
     }
-
+    
+    /**
+     * 
+     * @param index
+     * @return
+     */
     public Tuple getItemSet(int index) {
         Tuple tuple = new Tuple(attributeSet.size());
         int i;
@@ -105,13 +135,13 @@ public class Data {
         	Attribute attr = attributeSet.get(i);
             if(attr instanceof ContinuousAttribute) {
             	tuple.add(
-                        new ContinuousItem((ContinuousAttribute)attr, (Double)data.get(index).get(i)),
-                        i
+                    new ContinuousItem((ContinuousAttribute)attr, (Double)data.get(index).get(i)),
+                    i
                 );
             } else {
             	tuple.add(
-                        new DiscreteItem((DiscreteAttribute)attr, (String)data.get(index).get(i)),
-                        i
+                    new DiscreteItem((DiscreteAttribute)attr, (String)data.get(index).get(i)),
+                    i
                 );
             }
         }
