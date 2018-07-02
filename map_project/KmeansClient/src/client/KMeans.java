@@ -209,37 +209,126 @@ public class KMeans extends JApplet {
          * @throws IOException, if the given path of the icon doesn't exist
          */
         public JLabel getLabel(String title, String icon) throws IOException {
+        	
+        	/**
+        	 * Creates a new JLabel with the input "title" string.
+        	 * 
+        	 *  @see JLabel
+        	 */
         	JLabel label = new JLabel(title);
+        	
         	try {
+        		/**
+        		 * Reads an image from the icon string which indicates a path for the icon
+        		 * to put beside the label title. For a correct use of this method imported
+        		 * image must be 20x20 pixels.
+        		 */
         		label.setIcon(new ImageIcon(ImageIO.read(getClass().getResource(icon))));
+        		
+        	/**
+        	 * If it catches an IOException from the getResource method, it prints an error
+        	 * message.
+        	 */
         	} catch(IOException ex) {
         		ex.printStackTrace();
         	}
         	return label;
         }
         
+        
+        /**
+         * This method establishes a connection with the server, by creating a valid socket,
+         * in order to send a request to the server itself. If the request is valid then the
+         * method handles the response by printing the output on the JTextarea designed for
+         * the output.
+         * 
+         * @throws IOException 
+         * @throws ClassNotFoundException
+         */
         private void learningFromDBAction() throws IOException, ClassNotFoundException {
-            Request req = null;
+            
+        	/**
+        	 * The request object is initialized.
+        	 */
+        	Request req = null;
+        	
+        	/**
+        	 * Number of clusters chosen by the user for the computation.
+        	 */
             int numberClusters;
+            
+            /**
+             * With getByName method of InetAddress, the method gets the DNS of an IP.
+             */
             InetAddress addr = InetAddress.getByName("127.0.0.1");
+            
+            /**
+             * Port where the client makes the request to the server.
+             */
             int port = 8000;
+            
+            /**
+             * Creation of a new socket by setting the address and the port of the server.
+             */
             Socket socket = new Socket(addr, port);
             try {
+            	
+            	/**
+            	 * Creation of an ObjectOutputStream in order to send the request to the server.
+            	 */
                 out = new ObjectOutputStream(socket.getOutputStream());
+                
+                /**
+                 * Creation of an ObjectInputStream in order to print the output once the client receives a response.
+                 */
                 in = new ObjectInputStream(socket.getInputStream());
+                
+                /**
+                 * Getting the number of clusters to produce from the input textArea of the interface.
+                 */
                 numberClusters = panelWrite.getNumberOfClusters();
+                
+                /**
+                 * Getting the name of the table where the query has place.
+                 */
                 String table = panelWrite.getTable();
+                
+                /**
+                 * Getting the name of the file where the result of the computation is saved
+                 */
                 String fileName = panelWrite.getFile();
+                
+                /**
+                 * Building a new request with the chosen file name, number of clusters to produce and the table name where the data is taken
+                 */
                 req = new WriteRequest(fileName, numberClusters, table);
-                // Send request 
+                
+                /**
+                 * Sending the request to the server 
+                 */
                 out.writeObject(req);
-                // Write response
+                
+                /**
+                 * Printing on the textArea of the interface the response of the server.
+                 */
                 panelWrite.setOutputPanel((String)in.readObject());
+                
+              /**
+               * Catching the NumberFormatException if the number of clusters given by the user is not usable for a valid computation 
+               * and creates a JOptionPane to print the error message.
+               */
             } catch(NumberFormatException e) { 
                 JOptionPane.showMessageDialog(this, e.toString());
+              /**
+               * Catching the ClassNotFoundException if the driver manager of the database connector is not found and creates a JOptionPane
+               * to print the error message.
+               */
             } catch(ClassNotFoundException e) {
                 JOptionPane.showMessageDialog(this, "Class not found.");
             } finally {
+            	/**
+            	 * It closes the socket even if there were problems during the execution of the request.
+            	 */
                 try {
                     if(socket != null) socket.close();
                 } catch(IOException e) {
