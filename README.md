@@ -1,9 +1,9 @@
-# java-exercises 
+# Data Mining Clustering
 **The first time:** <br />
 $git clone https://github.com/MessineseGianluca/Data-Mining-Clustering
 Then open Eclipse: <br />
- -set java-exercises as workshop folder <br />
- -once Eclipse is loaded File->Open project from File System->Directory-> select the folder of the exercise you want to work on(e.g. exercise1) <br />
+ -set Data-Mining-Clustering as workshop folder <br />
+ -once Eclipse is loaded File->Open project from File System->Directory-> select the folder KmeansServer or KmeansClient <br />
 
 **Each time after a push:** <br />
 $git pull <br />
