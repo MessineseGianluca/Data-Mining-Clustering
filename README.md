@@ -1,6 +1,6 @@
 # java-exercises 
 **The first time:** <br />
-$git clone https://github.com/MessineseGianluca/java-exercises/new/master?readme=1 <br />
+$git clone https://github.com/MessineseGianluca/Data-Mining-Clustering
 Then open Eclipse: <br />
  -set java-exercises as workshop folder <br />
  -once Eclipse is loaded File->Open project from File System->Directory-> select the folder of the exercise you want to work on(e.g. exercise1) <br />
