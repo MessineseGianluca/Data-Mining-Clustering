@@ -35,7 +35,8 @@ public class Cluster implements Serializable {
 	private Set<Integer> clusteredData;
 	
 	/** 
-	 * Cluster's constructor 
+	 * Cluster's constructor
+	 * @param centroid The centroid assign
 	 */
 	Cluster(Tuple centroid) {
 		this.centroid = centroid;

@@ -56,7 +56,7 @@ public class DbAccess {
 	/**
 	 * A Connection class object necessary to handle 
 	 * the connection to a database management system.
-	 * This object is initialized with {@value} .
+	 * This object is initialized with null .
 	 * 
 	 * @see Connection
 	 */

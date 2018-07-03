@@ -29,9 +29,9 @@ public class KmeansMiner {
     /**
      * KmeansMiner's constructor which initialize C reading data from a file.
      * @param fileName The name of the file from which the clusterSet is read.
-     * @throws FileNotFoundException
-     * @throws IOException
-     * @throws ClassNotFoundException
+     * @throws FileNotFoundException When the given filename doen't exist
+     * @throws IOException When an IO error occurs
+     * @throws ClassNotFoundException When the Class to get does't exists
      */
     public KmeansMiner(String fileName) throws FileNotFoundException, IOException, ClassNotFoundException {
         ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName));
@@ -42,8 +42,8 @@ public class KmeansMiner {
     /**
      * It stores C to a file.
      * @param filename The name of the file from which the clusterSet is read.
-     * @throws FileNotFoundException
-     * @throws IOException
+     * @throws FileNotFoundException When the given filename doen't exist
+     * @throws IOException When an IO error occurs
      */
     public void save(String filename) throws FileNotFoundException, IOException {
         ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename));

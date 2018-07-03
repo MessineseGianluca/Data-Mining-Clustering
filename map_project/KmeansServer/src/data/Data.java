@@ -31,7 +31,7 @@ public class Data {
      * Reads a set of transactions from the DB and
      * initializes attributeSet.
      * @param table The DB's table name
-     * @throws SQLException
+     * @throws SQLException When a SQL error occurs
      */
     public Data(String table) throws SQLException {
         attributeSet = new LinkedList<Attribute>();
@@ -153,6 +153,7 @@ public class Data {
      * @return A k dimension array whose
      * elements represent the indexes of the tuples which
      * have been initially chosen as centroids
+     * @throws OutOfRangeSampleSize When k is greater than the number of transactions
      */
     public int[] sampling(int k) throws OutOfRangeSampleSize {
         if(k <= 0 || k > numberOfExamples) {
