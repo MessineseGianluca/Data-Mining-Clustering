@@ -17,3 +17,8 @@ $git push origin master
 # JDBC-Connector:
 Download it from: https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.11.zip <br />
 Open Eclipse->Right click on project->Properties->Java Build Path->Libraries->Add External Jars->Select Connector (bin version).
+
+# DB configuration:
+You need to run the Data-Mining-Clustering/map_project/KmeansServer/src/database/createDB.sql script from mysql shell.
+$mysql -u root -p
+MYSQL: source ".../Data-Mining-Clustering/map_project/KmeansServer/src/database/createDB.sql";
