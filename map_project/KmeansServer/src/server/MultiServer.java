@@ -75,6 +75,7 @@ public class MultiServer {
 
     /**
      * Initializes a MultiServer's object and set its port to a specific value.
+     * @param args the input parameters for main
      * 
      * @throws IOException thrown if an I/O error occurs when handling a
      * 		   connection using sockets.

@@ -26,7 +26,7 @@ import java.net.Socket;
  * 
  * @see Thread
  * @see Socket
- * @see OnjectInputStream
+ * @see ObjectInputStream
  * @see ObjectOutputStream
  */
 public class ServerOneClient extends Thread {
