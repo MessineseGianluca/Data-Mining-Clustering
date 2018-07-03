@@ -15,5 +15,5 @@ $git commit -m "the text you want"
 $git push origin master
 
 # JDBC-Connector:
-Download it from: https://dev.mysql.com/downloads/connector/j/3.1.html <br />
-Open Eclipse->Right click on project->Properties->Java Build Path->Libraries->Add External Jars->Select Connector.
+Download it from: https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.11.zip <br />
+Open Eclipse->Right click on project->Properties->Java Build Path->Libraries->Add External Jars->Select Connector (bin version).
