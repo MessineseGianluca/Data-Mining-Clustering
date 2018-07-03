@@ -124,9 +124,9 @@ public class Data {
     }
     
     /**
-     * 
-     * @param index
-     * @return
+  	 * Generates a Tuple from the given transaction
+     * @param index The index of the transaction to parse
+     * @return The generated tuple
      */
     public Tuple getItemSet(int index) {
         Tuple tuple = new Tuple(attributeSet.size());
@@ -148,13 +148,13 @@ public class Data {
         return tuple;
     }
 
-    /* k is the number of cluster to generate. This method return a k dimension array, whose
-     * elements represent the index of the tuples(row index of data matrix) which
-     * have been initially chosen as centroids(first step of k-means)
+    /** 
+     * @param k The number of clusters to generate
+     * @return A k dimension array whose
+     * elements represent the indexes of the tuples which
+     * have been initially chosen as centroids
      */
-
     public int[] sampling(int k) throws OutOfRangeSampleSize {
-        // exception
         if(k <= 0 || k > numberOfExamples) {
             System.out.println("Here");
             throw new OutOfRangeSampleSize();
@@ -183,7 +183,13 @@ public class Data {
         }
         return centroidIndexes;
     }
-
+    
+    /**
+     * Compares two transactions
+     * @param i The index of the first transaction
+     * @param j The index of the second transaction
+     * @return TRUE if the transactions are equal, FALSE otherwise
+     */
     private boolean compare(int i, int j) {
         boolean equal = true;
         int k = 0;
@@ -195,15 +201,32 @@ public class Data {
         }
         return equal;
     }
-
-    Object computePrototype(Set<Integer> idList, Attribute attribute) { //By using RTTI, it can decide if the attribute is Discrete or Continuous
+    
+    /**
+     * Compute the centroid of a given attribute analyzing the given set of
+     * transactions.
+     * @param idList The set of transactions
+     * @param attribute The attribute
+     * @return computePrototype of a ContinuousAttribute if the attribute
+     * is an instance of ContinuousAttribute, computePrototype of a 
+     * DiscreteAttribute otherwise
+     */
+    Object computePrototype(Set<Integer> idList, Attribute attribute) {
+    	// Decide if the attribute is Discrete or Continuous(using RTTI)
         if(attribute instanceof ContinuousAttribute) {
         	return computePrototype(idList, (ContinuousAttribute) attribute);
         } else {
         	return computePrototype(idList, (DiscreteAttribute) attribute);
         }
     }
-
+    
+    
+    /**
+     * Compute the most frequent value for the given attribute in idList
+     * @param idList The set of transactions
+     * @param attribute The attribute to analyze
+     * @return The computed centroid
+     */
     private String computePrototype(Set<Integer> idList, DiscreteAttribute attribute) {
         int comp;
         int freq = 0;
@@ -218,7 +241,12 @@ public class Data {
         }
         return centroid;
     }
-
+    /**
+     * Compute the average attribute's value for idList
+     * @param idList The set of transactions
+     * @param attribute The attribute to analyze
+     * @return The computed value
+     */
     private Double computePrototype(Set<Integer> idList, ContinuousAttribute attribute) {
     	return attribute.getAVG(this, idList);
     }
