@@ -26,8 +26,8 @@ public class ContinuousAttribute extends Attribute {
      * ContinuousAttribute's constructor
      * 
      * @param name The symbolic name of the attribute
-     * @param min
-     * @param max
+     * @param min The inferior end
+     * @param max the superior end
      */
     public ContinuousAttribute(String name, double min, double max) {
     	super(name); // invokes Attribute's constructor
