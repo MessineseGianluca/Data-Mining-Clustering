@@ -436,17 +436,17 @@ public class KMeans extends JApplet {
         JFrame frame = new JFrame();
         
         /**
-         * The title of the frame is setted here
+         * The title of the frame is set here
          */
         frame.setTitle("K-Means Client");
         
         /**
-         * The dimension of the frame is setted here
+         * The dimension of the frame is set here
          */
         frame.setSize(900, 345);
         
         /**
-         * The default operation after the closure of the frame is setted here 
+         * The default operation after the closure of the frame is set here 
          */
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
