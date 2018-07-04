@@ -125,18 +125,60 @@ class JPanelWrite extends JPanel {
         );
         
         /**
-         * 
+         * All the text printed in the outputPanel can't be editable by the user. In this way the interface can keep his
+         * functionality. 
          */
         outputPanel.setEditable(false);
+        
+        /**
+         * The automatic line wrapping policy is set true so the TextArea can print the output without any problem
+         * of visibility.
+         */
         outputPanel.setLineWrap(true);
+        
+        /**
+         * Because the ScrollingArea contains the TextArea for the output, it must declare the preferred dimensions of the TextArea
+         */
         scrollingArea.setPreferredSize(new Dimension(880, 200));
+        
+        /**
+         * Because the ScrollingArea contains the TextArea for the output, it must declare the maximum dimensions of the TextArea
+         */
         scrollingArea.setMaximumSize(new Dimension(880, 200));
+        
+        /**
+         * In order to visualize the scrollingArea, the visibility must be set to true
+         */
         scrollingArea.setVisible(true);
+        
+        /**
+         * Positioning of the scrollbar, in this case it is set to the right of the textArea
+         */
         scrollingArea.setAlignmentX(RIGHT_ALIGNMENT);
+        
+        /**
+         * Like for the scrollingArea, also the outputPanel must have his own automatic Line Wrapping policy activated
+         */
         outputPanel.setWrapStyleWord(true);
+        
+        /**
+         * buttonName string attached to the executeButton
+         */
         executeButton.setText(buttonName);
+        
+        /**
+         * Setting a dimension for the executeButton
+         */
         executeButton.setSize(new Dimension(50, 100));
+        
+        /**
+         * The ActionListener a is linked to the executeButton
+         */
         executeButton.addActionListener(a);
+        
+        /**
+         * Setting the Layout Manager for the current Panel
+         */
         this.setLayout(layout);
         layout.setAutoCreateContainerGaps(true);
         layout.setAutoCreateGaps(true);
