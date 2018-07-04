@@ -28,8 +28,8 @@ public abstract class Attribute implements Serializable {
 	private static int count = 0;
 	
 	/**
-	 * Attribute's constructor
-	 * @param name The attribute's symbolic  name.
+	 * Constructor of the attribute
+	 * @param name, Symbolic name of the attribute.
 	 */
 	public Attribute(String name) {
 		this.name = name;
