@@ -26,7 +26,7 @@ public class ClusterSet implements Serializable {
 	private int nextCluster = 0;
 	
 	/**
-	 * ClusterSet's constructor
+	 * Constructor of ClusterSet
 	 * @param k The number of clusters to store.
 	 */
 	ClusterSet(int k) {
@@ -121,8 +121,8 @@ public class ClusterSet implements Serializable {
 	}
 	
 	/**
-	 * @return The string representing the centroids' values
-	 * of the clusters stored in C.
+	 * @return The string representing the values of the centroids
+	 * in the stored clusters.
 	 */
 	public String toString() {
 		int i;

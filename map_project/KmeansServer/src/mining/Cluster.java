@@ -20,9 +20,9 @@ public class Cluster implements Serializable {
 	
 	/**
 	 * A centroid is a Tuple instance representing 
-	 * the average values of the transactions in the 
-	 * cluster'set. Each cluster in the system has 
-	 * a different centroid.
+	 * the average or the most significant values
+	 * of the transactions in the clusterData. 
+	 * Each cluster in the system has a different centroid.
 	 * 
 	 * @see data.Tuple
 	 */
@@ -35,7 +35,7 @@ public class Cluster implements Serializable {
 	private Set<Integer> clusteredData;
 	
 	/** 
-	 * Cluster's constructor
+	 * Constructor of Cluster
 	 * @param centroid The centroid assign
 	 */
 	Cluster(Tuple centroid) {
@@ -48,8 +48,8 @@ public class Cluster implements Serializable {
 	}
 	
 	/** 
-	 * It computes a new centroid based on the clusteredData's
-	 * transactions.
+	 * It computes a new centroid based on the
+	 * transactions of clusterData.
 	 * 
 	 * @param data The whole set of transactions on which the system
 	 * works.
@@ -90,7 +90,7 @@ public class Cluster implements Serializable {
 	}
 	
 	/**
-	 * @return A String containing the centroid's values.
+	 * @return A String containing the values of the centroid.
 	 */
 	public String toString() {
 		String str = "Centroid = ";
@@ -101,8 +101,8 @@ public class Cluster implements Serializable {
 	/**
 	 * @param data The whole set of transactions on which the system
 	 * works.
-	 * @return A string containing the centroid's values,
-	 * along with the transactions' values in the Cluster
+	 * @return A string containing the values of the centroid,
+	 * along with the transactions in clusterSet
 	 */
 	public String toString(Data data) {
 		String str = "Centroid = ";

@@ -23,14 +23,14 @@ public class ContinuousAttribute extends Attribute {
     private double min;
     
     /**
-     * ContinuousAttribute's constructor
+     * Constructor of ContinuousAttribute
      * 
      * @param name The symbolic name of the attribute
      * @param min The inferior end
      * @param max the superior end
      */
     public ContinuousAttribute(String name, double min, double max) {
-    	super(name); // invokes Attribute's constructor
+    	super(name); // invokes the constructor of Attribute
     	this.min = min;
     	this.max = max;
     }
@@ -44,7 +44,6 @@ public class ContinuousAttribute extends Attribute {
     }
     
     /**
-     * 
      * @param data The whole set of tuples in the system
      * @param idList The set of tuples to analyze
      * @return The average value of the given attribute for a set of tuples

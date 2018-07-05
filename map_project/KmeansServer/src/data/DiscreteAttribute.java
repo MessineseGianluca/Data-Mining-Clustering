@@ -23,9 +23,9 @@ public class DiscreteAttribute extends Attribute implements Iterable<String> {
 	private TreeSet<String> values;
     
 	/**
-	 * DiscreteAttribute's constructor
-	 * @param name the symbolic attribute's name.
-	 * @param values the set of valid values for the discrete attribute
+	 * Constructor of DiscreteAttribute
+	 * @param name The symbolic name of the attribute.
+	 * @param values The set of valid values for the discrete attribute
 	 */
     public DiscreteAttribute(String name, TreeSet<String> values)  {
         super(name);
