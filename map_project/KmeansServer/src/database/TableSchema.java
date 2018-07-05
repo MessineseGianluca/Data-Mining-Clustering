@@ -12,12 +12,11 @@ import java.util.List;
  * The TableSchema class is used to create a schema for a table
  * stored in a relational database.
  * A table schema collects information about fields of the table
- * which it refers to, such as the name of the field's type and 
- * the category this type belongs to; for example it could be a numeric
- * type or a string type.
+ * which it refers to, such as the field type name and the category 
+ * this type belongs to; for example it could be a numeric type or a string type.
  * The information about a singular field is represented by a 
  * column which can be considered as a couple composed by two strings:
- * the first string refers to the name of the field's type,
+ * the first string refers to the field type name,
  * the second string refers to the type property.
  * The TableSchema class has a method to get the information about 
  * a specific column of the table and a method to get the number of columns
@@ -34,25 +33,25 @@ public class TableSchema {
 	
 	/**
 	 * The Column class is useful to represent the information about fields
-	 * of a database's table.
-	 * This class has methods to get the name of a specific field's type, to verify
+	 * of a database table.
+	 * This class has methods to get the name of a specific field type, to verify
 	 * if the field accepts numeric values and to get a string containing 
 	 * all information about the specific field.
 	 */
 	public class Column {
 		
 		/**
-		 * The name of the field's type.
+		 * The name of the field type.
 		 */
 		private String name;
 		
 		/**
-		 * The category the field's type belongs to.
+		 * The category the field type belongs to.
 		 */
 		private String type;
 		
 		/**
-		 * Constructs a new Column object by setting the name of the field's type
+		 * Constructs a new Column object by setting the name of the field type
 		 * and its property.
 		 * 
 		 * @param name The string to set as name of the type.
@@ -77,7 +76,7 @@ public class TableSchema {
 		}
 		
 		/**
-		 * Returns a string representing this Column's values.
+		 * Returns a string representing values of this Column object.
 		 * 
 		 * @return a string for this column.
 		 */
@@ -91,7 +90,7 @@ public class TableSchema {
 	 * Constructs a new TableSchema object by setting the name of table 
 	 * it refers to and the information about fields of the table.
 	 * To obtain the information about each field, it is indispensable to use
-	 * a DatabaseMetaData's object which collects all information about tables 
+	 * a DatabaseMetaData object which collects all information about tables 
 	 * stored in a specific database. Moreover, to set the TableSchema object 
 	 * it is necessary a type mapping phase because data types in SQL and 
 	 * data types in the Java programming language are not identical and 

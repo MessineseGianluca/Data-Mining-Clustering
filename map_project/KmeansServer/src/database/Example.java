@@ -9,14 +9,14 @@ import java.util.List;
  * from a table stored in a database.
  * An Example object is a collection of values of different types,
  * where each type must be coherent with the type of 
- * the corresponding tuple's value.
+ * the corresponding value of the tuple.
  * When adding new values in the collection, their position is very 
  * important because it makes possible to give an exact copy of the 
- * information contained in a database's table.
+ * information contained in a database table.
  * The Example class has methods to add a new values in the collection
  * and to get one of them by accessing to a specific position 
  * of the collection. In addition, this class provides a method for 
- * comparing two Example's object, as well as a method for converting 
+ * comparing two Example object, as well as a method for converting 
  * an example in a string. It is also possible to get an iterator 
  * to traverse the collection of values.
  * 
@@ -26,7 +26,7 @@ public class Example implements Comparable<Example> {
 	
 	/**
 	 * The collection of values a tuple is composed by.
-	 * It accepts Object's instance because added values
+	 * It accepts Object instances because added values
 	 * could be of different types.
 	 * 
 	 * @see List
@@ -53,7 +53,7 @@ public class Example implements Comparable<Example> {
     }
 	
     /**
-     * Compares two Example's objects by comparing their values one by one.
+     * Compares two Example objects by comparing their values one by one.
      * 
      * @return the value 0 if this Example is equal to the argument Example; 
      * 		   a value less than 0 if this Example has a lesser value

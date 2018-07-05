@@ -30,9 +30,9 @@ public class MultiServer {
      * This method always executes run() to give server the opportunity 
      * to receive new requests from client applications.
      * 
-     * @param port a numeric combination representing server's port.
+     * @param port a numeric combination representing the server port.
      * @throws IOException thrown if an I/O error occurs when handling a
-     * 		   connection using sockets.
+     *            connection using sockets.
      */
     public MultiServer(int port) throws IOException {
         this.PORT = port;
@@ -41,17 +41,17 @@ public class MultiServer {
   
     /**
      * Represents the core of server activity.
-     * This method creates a ServerSocket's object that put the server 
+     * This method creates a ServerSocket object that put the server 
      * in waiting state until a new client request arrives.
      * When there is a pending request, a Socket-to-Socket connection
-     * is set up by creating a Socket's object which will be used 
+     * is set up by creating a Socket object which will be used 
      * to communicate the result of a request to a client application.
      * Communication with a specific client is handled by a thread
-     * instantiated with the Socket's object when there is a new request.
+     * instantiated with the Socket object when there is a new request.
      * The server ends the execution when its activity is no longer required.
      * 
      * @throws IOException thrown if an I/O error occurs when handling a
-     * 		   connection using sockets.
+     *            connection using sockets.
      * @see ServerSocket
      * @see Socket
      * @see ServerOneClient
@@ -74,7 +74,7 @@ public class MultiServer {
     }
 
     /**
-     * Initializes a MultiServer's object and set its port to a specific value.
+     * Initializes a MultiServer object and set its port to a specific value.
      * @param args the input parameters for main
      * 
      * @throws IOException thrown if an I/O error occurs when handling a

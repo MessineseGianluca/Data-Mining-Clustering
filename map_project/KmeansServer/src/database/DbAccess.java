@@ -67,7 +67,7 @@ public class DbAccess {
 	 * management system.
 	 * First of all, the method gives to class loader the order 
 	 * to load the driver of the database management system, 
-	 * then it initializes the connection with the Connection's object
+	 * then it initializes the connection with the specific object
 	 * created by the driver manager. This object will be used 
 	 * to execute all the operations towards the database.
 	 * 
@@ -94,7 +94,7 @@ public class DbAccess {
 	
 	/**
 	 * Closes the connection to the database by releasing 
-	 * the Connection's object.
+	 * the Connection object.
 	 * 
 	 * @throws SQLException thrown when trying to close a not
 	 * 	       initialized connection.
