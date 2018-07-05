@@ -3,7 +3,7 @@ package data;
 /**
  * ContinuosItem extends Item, in order to manipulate Item with a discrete
  * value associated to itself. Continuous values are such as double, long, float, etc..
- * ContinuousItem is seriazible.
+ * ContinuousItem is serializable.
  * @see Item
  */
 public class ContinuousItem extends Item {
@@ -31,8 +31,6 @@ public class ContinuousItem extends Item {
 	 * 
 	 * @param a , the object from which the method calculates the distance
 	 * @return The distance between the two Continuous Items.
-	 * 
-	 * @see getScaledValue
 	 */
 	double distance(Object a) {
 		

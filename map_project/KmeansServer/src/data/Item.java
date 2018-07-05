@@ -74,8 +74,6 @@ public abstract class Item implements Serializable {
      * 
      * @param data, a data object which contains all the values
      * @param clusteredData, indexes of the rows of data
-     * 
-     * @see data.computePrototype
      */
     public void update(Data data, Set<Integer> clusteredData) {
     	/**
