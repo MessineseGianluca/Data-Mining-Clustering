@@ -61,7 +61,7 @@ class JPanelWrite extends JPanel {
     /**
      * Creating a new JButton so the user can start a new computation.
      * 
-     * @see JTextButton
+     * @see JButton
      */
     private JButton executeButton = new JButton();
     

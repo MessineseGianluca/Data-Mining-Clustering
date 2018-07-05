@@ -8,7 +8,7 @@ import java.util.Set;
  * for the computation of the clusters, because we can link a value to its
  * abstract representation. Item is serializable.
  * 
- *@see Attribute
+ * @see Attribute
  */
 public abstract class Item implements Serializable {
 	/**

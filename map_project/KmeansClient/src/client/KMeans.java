@@ -203,20 +203,18 @@ public class KMeans extends JApplet {
          * This method takes an icon from a file and creates a JLabel with
          * the icon and the string given by the caller.
          * 
-         * @param title, it's the string that will compose the label
-         * @param icon, it's the file path of the icon that will compose the label
+         * @param title it's the string that will compose the label
+         * @param icon it's the file path of the icon that will compose the label
          * @return JLabel which is composed by the icon and the title string
-         * @throws IOException, if the given path of the icon doesn't exist
+         * @throws IOException when a I/O exception occurs
          */
-        public JLabel getLabel(String title, String icon) throws IOException {
-        	
+        public JLabel getLabel(String title, String icon) throws IOException {	
         	/**
         	 * Creates a new JLabel with the input "title" string.
         	 * 
         	 *  @see JLabel
         	 */
-        	JLabel label = new JLabel(title);
-        	
+        	JLabel label = new JLabel(title);    	
         	try {
         		/**
         		 * Reads an image from the icon string which indicates a path for the icon
@@ -247,7 +245,6 @@ public class KMeans extends JApplet {
          * @throws ClassNotFoundException if the driver manager of the database connector is not found and creates a JOptionPane to print the error message 
          */
         private void learningFromDBAction() throws IOException, ClassNotFoundException {
-            
         	/**
         	 * The request object is initialized.
         	 */

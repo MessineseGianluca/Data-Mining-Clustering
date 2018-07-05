@@ -45,7 +45,7 @@ class JPanelRead extends JPanel {
     /**
      * Creating a new JButton so the user can load saved clusters.
      * 
-     * @see JTextButton
+     * @see JButton
      */
     private JButton executeButton = new JButton();
     
